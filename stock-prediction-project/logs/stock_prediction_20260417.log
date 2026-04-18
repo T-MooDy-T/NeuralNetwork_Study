@@ -1,0 +1,20 @@
+2026-04-17 22:09:03 - stock_prediction - INFO - Added stock: 600519 - 贵州茅台
+2026-04-17 22:09:03 - stock_prediction - INFO - Added stock: 000858 - 五 粮 液
+2026-04-17 22:09:03 - stock_prediction - INFO - Added stock: 000651 - 格力电器
+2026-04-17 22:09:03 - stock_prediction - INFO - Added stock: 601318 - 中国平安
+2026-04-17 22:09:03 - stock_prediction - INFO - Added stock: 000001 - 平安银行
+2026-04-17 22:09:22 - stock_prediction - INFO - Fetching daily data for 600519
+2026-04-17 22:09:22 - stock_prediction - INFO - Fetching financial data for 600519
+2026-04-17 22:09:22 - stock_prediction - INFO - Fetching news for 600519
+2026-04-17 22:10:27 - stock_prediction - INFO - Fetching daily data for 600519
+2026-04-17 22:10:30 - stock_prediction - INFO - Fetching financial data for 600519
+2026-04-17 22:10:30 - stock_prediction - INFO - Fetching news for 600519
+2026-04-17 22:11:43 - stock_prediction - INFO - Fetching daily data for 600519
+2026-04-17 22:11:44 - stock_prediction - INFO - Fetching financial data for 600519
+2026-04-17 22:11:45 - stock_prediction - INFO - Fetching news for 600519
+2026-04-17 22:12:50 - stock_prediction - INFO - Model evaluation metrics: {'MSE': 0.015995601, 'RMSE': 0.12647372, 'MAE': 0.11644499, 'R2': -0.46069119753349663}
+2026-04-17 22:12:50 - stock_prediction - INFO - Model training completed and saved
+2026-04-17 23:55:24 - stock_prediction - INFO - Model evaluation metrics: {'MSE': 0.01389231812208891, 'RMSE': np.float64(0.11786567830411408), 'MAE': 0.10865109413862228, 'R2': -0.26862287521362305}
+2026-04-17 23:55:24 - stock_prediction - INFO - Model training completed and saved
+2026-04-17 23:55:41 - stock_prediction - INFO - Model evaluation metrics: {'MSE': 0.015338742174208164, 'RMSE': np.float64(0.12384967571297134), 'MAE': 0.1128755509853363, 'R2': -0.40070784091949463}
+2026-04-17 23:55:41 - stock_prediction - INFO - Model training completed and saved

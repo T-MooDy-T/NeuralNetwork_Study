@@ -1,0 +1,2 @@
+2026-04-18 00:13:11 - stock_prediction - INFO - Model evaluation metrics: {'MSE': 0.0025038989260792732, 'RMSE': np.float64(0.05003897407101062), 'MAE': 0.04017757996916771, 'R2': 0.6647775769233704}
+2026-04-18 00:13:11 - stock_prediction - INFO - Model training completed and saved

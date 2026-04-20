@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园 AI 秘书 - 管理后台</title>
+    
+    <!-- Element Plus CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <!-- ECharts -->
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+        }
+        
+        #app {
+            min-height: 100vh;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 400px;
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 220px;
+            background: #001529;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-logo {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #002140;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .sidebar-menu {
+            margin-top: 10px;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .stat-card.primary .stat-value { color: #409EFF; }
+        .stat-card.success .stat-value { color: #67C23A; }
+        .stat-card.warning .stat-value { color: #E6A23C; }
+        .stat-card.danger .stat-value { color: #F56C6C; }
+        
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+        
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .pagination-container {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 登录页面 -->
+        <div v-if="!isLoggedIn" class="login-container">
+            <div class="login-box">
+                <h2 class="login-title">🎓 校园 AI 秘书</h2>
+                <h3 style="text-align: center; margin-bottom: 20px; color: #666;">管理后台</h3>
+                
+                <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
+                    <el-form-item prop="username">
+                        <el-input 
+                            v-model="loginForm.username" 
+                            placeholder="用户名"
+                            prefix-icon="User"
+                            size="large"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input 
+                            v-model="loginForm.password" 
+                            type="password"
+                            placeholder="密码"
+                            prefix-icon="Lock"
+                            size="large"
+                            @keyup.enter="handleLogin"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button 
+                            type="primary" 
+                            @click="handleLogin" 
+                            size="large"
+                            :loading="loading"
+                            style="width: 100%;"
+                        >登录</el-button>
+                    </el-form-item>
+                </el-form>
+                
+                <div style="text-align: center; color: #999; font-size: 12px; margin-top: 15px;">
+                    默认账号：admin / admin123
+                </div>
+            </div>
+        </div>
+        
+        <!-- 管理后台 -->
+        <div v-else class="admin-layout">
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <div class="sidebar-logo">🎓 校园 AI 秘书</div>
+                <el-menu 
+                    :default-active="activeMenu"
+                    background-color="#001529"
+                    text-color="rgba(255,255,255,0.65)"
+                    active-text-color="#fff"
+                    class="sidebar-menu"
+                >
+                    <el-menu-item index="dashboard" @click="activeMenu = 'dashboard'">
+                        <el-icon><DataAnalysis /></el-icon>
+                        <span>仪表盘</span>
+                    </el-menu-item>
+                    <el-menu-item index="users" @click="activeMenu = 'users'">
+                        <el-icon><User /></el-icon>
+                        <span>用户管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="schedules" @click="activeMenu = 'schedules'">
+                        <el-icon><Calendar /></el-icon>
+                        <span>日程管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="knowledge" @click="activeMenu = 'knowledge'">
+                        <el-icon><Document /></el-icon>
+                        <span>知识库</span>
+                    </el-menu-item>
+                    <el-menu-item index="collected" @click="activeMenu = 'collected'">
+                        <el-icon><Message /></el-icon>
+                        <span>采集信息</span>
+                    </el-menu-item>
+                    <el-menu-item index="reminders" @click="activeMenu = 'reminders'">
+                        <el-icon><Bell /></el-icon>
+                        <span>提醒日志</span>
+                    </el-menu-item>
+                    <el-menu-item index="settings" @click="activeMenu = 'settings'">
+                        <el-icon><Setting /></el-icon>
+                        <span>系统设置</span>
+                    </el-menu-item>
+                </el-menu>
+            </div>
+            
+            <!-- 主内容区 -->
+            <div class="main-content">
+                <!-- 顶部栏 -->
+                <div class="header">
+                    <h3>{{ pageTitle }}</h3>
+                    <div>
+                        <el-dropdown @command="handleCommand">
+                            <span style="cursor: pointer;">
+                                <el-icon><UserFilled /></el-icon>
+                                {{ currentUser.username }}
+                                <el-icon><ArrowDown /></el-icon>
+                            </span>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
+                    </div>
+                </div>
+                
+                <!-- 仪表盘 -->
+                <div v-if="activeMenu === 'dashboard'">
+                    <div class="stat-cards">
+                        <div class="stat-card primary">
+                            <div class="stat-label">总用户数</div>
+                            <div class="stat-value">{{ stats.users?.total || 0 }}</div>
+                            <div style="color: #67C23A; font-size: 12px;">
+                                活跃：{{ stats.users?.active || 0 }}
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-label">总日程数</div>
+                            <div class="stat-value">{{ stats.schedules?.total || 0 }}</div>
+                            <div style="color: #666; font-size: 12px;">
+                                今日：{{ stats.schedules?.today || 0 }}
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-label">提醒总数</div>
+                            <div class="stat-value">{{ stats.reminders?.total || 0 }}</div>
+                            <div style="color: #666; font-size: 12px;">
+                                今日：{{ stats.reminders?.today || 0 }}
+                            </div>
+                        </div>
+                        <div class="stat-card danger">
+                            <div class="stat-label">知识库文档</div>
+                            <div class="stat-value">{{ stats.knowledge_base?.active || 0 }}</div>
+                            <div style="color: #666; font-size: 12px;">
+                                总计：{{ stats.knowledge_base?.total || 0 }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h4>用户增长趋势</h4>
+                        <div id="userChart" class="chart-container"></div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h4>日程统计</h4>
+                        <div id="scheduleChart" class="chart-container"></div>
+                    </div>
+                </div>
+                
+                <!-- 用户管理 -->
+                <div v-if="activeMenu === 'users'">
+                    <div class="content-card">
+                        <div class="table-toolbar">
+                            <div>
+                                <el-input 
+                                    v-model="userFilters.keyword" 
+                                    placeholder="搜索用户名/邮箱"
+                                    style="width: 250px;"
+                                    @input="loadUsers"
+                                ></el-input>
+                            </div>
+                            <div>
+                                <el-button type="primary" @click="loadUsers">刷新</el-button>
+                            </div>
+                        </div>
+                        
+                        <el-table :data="users" stripe v-loading="loading">
+                            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                            <el-table-column prop="username" label="用户名"></el-table-column>
+                            <el-table-column prop="email" label="邮箱"></el-table-column>
+                            <el-table-column prop="nickname" label="昵称"></el-table-column>
+                            <el-table-column prop="role" label="角色">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.role === 'admin' ? 'danger' : 'primary'">
+                                        {{ row.role === 'admin' ? '管理员' : '普通用户' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="is_active" label="状态">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.is_active ? 'success' : 'info'">
+                                        {{ row.is_active ? '启用' : '禁用' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="schedule_count" label="日程数"></el-table-column>
+                            <el-table-column prop="last_login" label="最后登录">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.last_login) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="150">
+                                <template #default="{ row }">
+                                    <el-button 
+                                        size="small" 
+                                        @click="toggleUserStatus(row)"
+                                    >
+                                        {{ row.is_active ? '禁用' : '启用' }}
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        
+                        <div class="pagination-container">
+                            <el-pagination
+                                v-model:current-page="userPagination.page"
+                                v-model:page-size="userPagination.page_size"
+                                :total="userPagination.total"
+                                @current-change="loadUsers"
+                                layout="total, prev, pager, next"
+                            ></el-pagination>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 日程管理 -->
+                <div v-if="activeMenu === 'schedules'">
+                    <div class="content-card">
+                        <div class="table-toolbar">
+                            <div>
+                                <el-select v-model="scheduleFilters.status" placeholder="状态" clearable @change="loadSchedules">
+                                    <el-option label="待处理" value="pending"></el-option>
+                                    <el-option label="已完成" value="completed"></el-option>
+                                    <el-option label="已取消" value="cancelled"></el-option>
+                                </el-select>
+                                <el-select v-model="scheduleFilters.priority" placeholder="优先级" clearable @change="loadSchedules" style="margin-left: 10px;">
+                                    <el-option label="高" value="high"></el-option>
+                                    <el-option label="中" value="medium"></el-option>
+                                    <el-option label="低" value="low"></el-option>
+                                </el-select>
+                            </div>
+                            <div>
+                                <el-button type="primary" @click="loadSchedules">刷新</el-button>
+                            </div>
+                        </div>
+                        
+                        <el-table :data="schedules" stripe v-loading="loading">
+                            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                            <el-table-column prop="username" label="用户"></el-table-column>
+                            <el-table-column prop="event_name" label="事件名称"></el-table-column>
+                            <el-table-column prop="start_time" label="开始时间">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.start_time) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="location" label="地点"></el-table-column>
+                            <el-table-column prop="priority" label="优先级">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
+                                        {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="status" label="状态">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.status === 'completed' ? 'success' : row.status === 'pending' ? 'warning' : 'info'">
+                                        {{ row.status === 'completed' ? '已完成' : row.status === 'pending' ? '待处理' : '已取消' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="100">
+                                <template #default="{ row }">
+                                    <el-button size="small" type="danger" @click="deleteSchedule(row.id)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        
+                        <div class="pagination-container">
+                            <el-pagination
+                                v-model:current-page="schedulePagination.page"
+                                v-model:page-size="schedulePagination.page_size"
+                                :total="schedulePagination.total"
+                                @current-change="loadSchedules"
+                                layout="total, prev, pager, next"
+                            ></el-pagination>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 知识库管理 -->
+                <div v-if="activeMenu === 'knowledge'">
+                    <div class="content-card">
+                        <div class="table-toolbar">
+                            <div>
+                                <el-button type="primary" @click="showAddKnowledgeDialog = true">
+                                    <el-icon><Plus /></el-icon> 添加文档
+                                </el-button>
+                            </div>
+                            <div>
+                                <el-select v-model="knowledgeFilters.is_active" placeholder="状态" clearable @change="loadKnowledge">
+                                    <el-option label="启用" :value="true"></el-option>
+                                    <el-option label="禁用" :value="false"></el-option>
+                                </el-select>
+                            </div>
+                        </div>
+                        
+                        <el-table :data="knowledge" stripe v-loading="loading">
+                            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                            <el-table-column prop="title" label="标题"></el-table-column>
+                            <el-table-column prop="source_type" label="来源类型"></el-table-column>
+                            <el-table-column prop="category" label="分类"></el-table-column>
+                            <el-table-column prop="view_count" label="查看次数"></el-table-column>
+                            <el-table-column prop="is_active" label="状态">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.is_active ? 'success' : 'info'">
+                                        {{ row.is_active ? '启用' : '禁用' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="created_at" label="创建时间">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.created_at) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="150">
+                                <template #default="{ row }">
+                                    <el-button size="small" @click="viewKnowledge(row)">查看</el-button>
+                                    <el-button size="small" type="danger" @click="deleteKnowledge(row.id)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        
+                        <div class="pagination-container">
+                            <el-pagination
+                                v-model:current-page="knowledgePagination.page"
+                                v-model:page-size="knowledgePagination.page_size"
+                                :total="knowledgePagination.total"
+                                @current-change="loadKnowledge"
+                                layout="total, prev, pager, next"
+                            ></el-pagination>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 提醒日志 -->
+                <div v-if="activeMenu === 'reminders'">
+                    <div class="content-card">
+                        <el-table :data="reminders" stripe v-loading="loading">
+                            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                            <el-table-column prop="username" label="用户"></el-table-column>
+                            <el-table-column prop="event_name" label="事件名称"></el-table-column>
+                            <el-table-column prop="remind_time" label="提醒时间">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.remind_time) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="offset" label="提前"></el-table-column>
+                            <el-table-column prop="status" label="状态">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.status === 'sent' ? 'success' : 'danger'">
+                                        {{ row.status === 'sent' ? '已发送' : '失败' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="sent_at" label="发送时间">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.sent_at) }}
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        
+                        <div class="pagination-container">
+                            <el-pagination
+                                v-model:current-page="reminderPagination.page"
+                                v-model:page-size="reminderPagination.page_size"
+                                :total="reminderPagination.total"
+                                @current-change="loadReminders"
+                                layout="total, prev, pager, next"
+                            ></el-pagination>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 采集信息 -->
+                <div v-if="activeMenu === 'collected'">
+                    <div class="content-card">
+                        <div class="table-toolbar">
+                            <div>
+                                <el-select v-model="collectedFilters.source_type" placeholder="来源类型" clearable @change="loadCollectedInfo">
+                                    <el-option label="QQ群" value="qq_group"></el-option>
+                                    <el-option label="微信群" value="wechat_chat"></el-option>
+                                    <el-option label="公众号" value="wechat_official"></el-option>
+                                </el-select>
+                                <el-select v-model="collectedFilters.priority" placeholder="优先级" clearable @change="loadCollectedInfo" style="margin-left: 10px;">
+                                    <el-option label="高" value="high"></el-option>
+                                    <el-option label="中" value="medium"></el-option>
+                                    <el-option label="低" value="normal"></el-option>
+                                </el-select>
+                                <el-select v-model="collectedFilters.status" placeholder="状态" clearable @change="loadCollectedInfo" style="margin-left: 10px;">
+                                    <el-option label="未读" value="unread"></el-option>
+                                    <el-option label="已读" value="read"></el-option>
+                                    <el-option label="已处理" value="processed"></el-option>
+                                </el-select>
+                            </div>
+                            <div>
+                                <el-button type="primary" @click="loadCollectedInfo">刷新</el-button>
+                            </div>
+                        </div>
+                        
+                        <el-table :data="collectedInfo" stripe v-loading="loading">
+                            <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                            <el-table-column prop="source" label="来源"></el-table-column>
+                            <el-table-column prop="source_type" label="来源类型">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.source_type === 'qq_group' ? 'primary' : row.source_type === 'wechat_chat' ? 'success' : 'warning'">
+                                        {{ row.source_type === 'qq_group' ? 'QQ群' : row.source_type === 'wechat_chat' ? '微信群' : '公众号' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="sender" label="发送者"></el-table-column>
+                            <el-table-column prop="content" label="内容" width="300">
+                                <template #default="{ row }">
+                                    {{ row.content.length > 50 ? row.content.slice(0, 50) + '...' : row.content }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="priority" label="优先级">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
+                                        {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="status" label="状态">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.status === 'unread' ? 'warning' : row.status === 'read' ? 'info' : 'success'">
+                                        {{ row.status === 'unread' ? '未读' : row.status === 'read' ? '已读' : '已处理' }}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="timestamp" label="时间">
+                                <template #default="{ row }">
+                                    {{ formatDate(row.timestamp) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="150">
+                                <template #default="{ row }">
+                                    <el-button size="small" @click="viewCollectedInfo(row)">查看</el-button>
+                                    <el-button size="small" @click="markCollectedAsRead(row)">标记已读</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        
+                        <div class="pagination-container">
+                            <el-pagination
+                                v-model:current-page="collectedPagination.page"
+                                v-model:page-size="collectedPagination.page_size"
+                                :total="collectedPagination.total"
+                                @current-change="loadCollectedInfo"
+                                layout="total, prev, pager, next"
+                            ></el-pagination>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 系统设置 -->
+                <div v-if="activeMenu === 'settings'">
+                    <div class="content-card">
+                        <h4>系统信息</h4>
+                        <el-descriptions :column="2" border>
+                            <el-descriptions-item label="系统版本">{{ systemInfo.version }}</el-descriptions-item>
+                            <el-descriptions-item label="Python 版本">{{ systemInfo.python_version }}</el-descriptions-item>
+                            <el-descriptions-item label="运行平台">{{ systemInfo.platform }}</el-descriptions-item>
+                            <el-descriptions-item label="调试模式">
+                                <el-tag :type="systemInfo.debug ? 'warning' : 'success'">
+                                    {{ systemInfo.debug ? '开启' : '关闭' }}
+                                </el-tag>
+                            </el-descriptions-item>
+                            <el-descriptions-item label="数据库类型">{{ systemInfo.database }}</el-descriptions-item>
+                        </el-descriptions>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加知识库对话框 -->
+        <el-dialog v-model="showAddKnowledgeDialog" title="添加知识库文档" width="600px">
+            <el-form :model="knowledgeForm" label-width="80px">
+                <el-form-item label="标题">
+                    <el-input v-model="knowledgeForm.title"></el-input>
+                </el-form-item>
+                <el-form-item label="内容" required>
+                    <el-input v-model="knowledgeForm.content" type="textarea" :rows="6"></el-input>
+                </el-form-item>
+                <el-form-item label="来源类型">
+                    <el-select v-model="knowledgeForm.source_type">
+                        <el-option label="教务通知" value="教务通知"></el-option>
+                        <el-option label="校园设施" value="校园设施"></el-option>
+                        <el-option label="社团公告" value="社团公告"></el-option>
+                        <el-option label="考试安排" value="考试安排"></el-option>
+                        <el-option label="其他" value="其他"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="分类">
+                    <el-input v-model="knowledgeForm.category"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <el-button @click="showAddKnowledgeDialog = false">取消</el-button>
+                <el-button type="primary" @click="addKnowledge">确定</el-button>
+            </template>
+        </el-dialog>
+    </div>
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Element Plus -->
+    <script src="https://unpkg.com/element-plus"></script>
+    <!-- Element Plus Icons -->
+    <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script>
+        const { createApp, ref, reactive, computed, onMounted, watch } = Vue;
+        
+        const app = createApp({
+            setup() {
+                // API 基础地址
+                const API_BASE = window.location.origin;
+                
+                // 登录状态
+                const isLoggedIn = ref(!!localStorage.getItem('token'));
+                const currentUser = ref({ username: '', role: '' });
+                const loading = ref(false);
+                const activeMenu = ref('dashboard');
+                
+                // 登录表单
+                const loginForm = reactive({ username: 'admin', password: 'admin123' });
+                const loginFormRef = ref(null);
+                const loginRules = {
+                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+                };
+                
+                // 统计数据
+                const stats = ref({});
+                
+                // 用户列表
+                const users = ref([]);
+                const userFilters = reactive({ keyword: '' });
+                const userPagination = reactive({ page: 1, page_size: 20, total: 0 });
+                
+                // 日程列表
+                const schedules = ref([]);
+                const scheduleFilters = reactive({ status: '', priority: '' });
+                const schedulePagination = reactive({ page: 1, page_size: 20, total: 0 });
+                
+                // 知识库列表
+                const knowledge = ref([]);
+                const knowledgeFilters = reactive({ is_active: null });
+                const knowledgePagination = reactive({ page: 1, page_size: 20, total: 0 });
+                const showAddKnowledgeDialog = ref(false);
+                const knowledgeForm = reactive({ title: '', content: '', source_type: '教务通知', category: '' });
+                
+                // 提醒日志
+                const reminders = ref([]);
+                const reminderPagination = reactive({ page: 1, page_size: 50, total: 0 });
+                
+                // 采集信息
+                const collectedInfo = ref([]);
+                const collectedFilters = reactive({ source_type: '', priority: '', status: '' });
+                const collectedPagination = reactive({ page: 1, page_size: 20, total: 0 });
+                
+                // 系统信息
+                const systemInfo = ref({});
+                
+                // 页面标题
+                const pageTitle = computed(() => {
+                    const titles = {
+                        dashboard: '仪表盘',
+                        users: '用户管理',
+                        schedules: '日程管理',
+                        knowledge: '知识库',
+                        collected: '采集信息',
+                        reminders: '提醒日志',
+                        settings: '系统设置'
+                    };
+                    return titles[activeMenu.value] || '管理后台';
+                });
+                
+                // API 请求封装
+                const api = axios.create({
+                    baseURL: API_BASE,
+                    timeout: 10000
+                });
+                
+                api.interceptors.request.use(config => {
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        config.headers.Authorization = `Bearer ${token}`;
+                    }
+                    return config;
+                });
+                
+                api.interceptors.response.use(
+                    response => response.data,
+                    error => {
+                        if (error.response?.status === 401) {
+                            logout();
+                        }
+                        return Promise.reject(error);
+                    }
+                );
+                
+                // 登录
+                const handleLogin = async () => {
+                    if (!loginFormRef.value) return;
+                    
+                    await loginFormRef.value.validate(async (valid) => {
+                        if (!valid) return;
+                        
+                        loading.value = true;
+                        try {
+                            const params = new URLSearchParams();
+                            params.append('username', loginForm.username);
+                            params.append('password', loginForm.password);
+                            
+                            const res = await api.post('/api/v1/auth/login', params, {
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                            });
+                            
+                            localStorage.setItem('token', res.access_token);
+                            isLoggedIn.value = true;
+                            
+                            // 获取用户信息
+                            const userRes = await api.get('/api/v1/auth/me');
+                            currentUser.value = userRes;
+                            
+                            ElementPlus.ElMessage.success('登录成功');
+                            loadDashboard();
+                        } catch (error) {
+                            ElementPlus.ElMessage.error(error.response?.data?.detail || '登录失败');
+                        } finally {
+                            loading.value = false;
+                        }
+                    });
+                };
+                
+                // 登出
+                const logout = () => {
+                    localStorage.removeItem('token');
+                    isLoggedIn.value = false;
+                    currentUser.value = { username: '', role: '' };
+                    ElementPlus.ElMessage.info('已退出登录');
+                };
+                
+                const handleCommand = (command) => {
+                    if (command === 'logout') logout();
+                };
+                
+                // 加载仪表盘
+                const loadDashboard = async () => {
+                    try {
+                        stats.value = await api.get('/api/admin/dashboard/stats');
+                        
+                        // 加载图表
+                        setTimeout(() => {
+                            loadUserChart();
+                            loadScheduleChart();
+                        }, 100);
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('加载统计数据失败');
+                    }
+                };
+                
+                // 加载用户图表
+                const loadUserChart = async () => {
+                    try {
+                        const res = await api.get('/api/admin/dashboard/chart/users?days=7');
+                        const chart = echarts.init(document.getElementById('userChart'));
+                        chart.setOption({
+                            tooltip: { trigger: 'axis' },
+                            xAxis: {
+                                type: 'category',
+                                data: res.data.map(d => d.date.slice(5))
+                            },
+                            yAxis: { type: 'value' },
+                            series: [{
+                                data: res.data.map(d => d.count),
+                                type: 'line',
+                                smooth: true,
+                                areaStyle: { opacity: 0.3 },
+                                itemStyle: { color: '#409EFF' }
+                            }]
+                        });
+                    } catch (error) {
+                        console.error('加载用户图表失败', error);
+                    }
+                };
+                
+                // 加载日程图表
+                const loadScheduleChart = async () => {
+                    try {
+                        const res = await api.get('/api/admin/dashboard/chart/schedules?days=7');
+                        const chart = echarts.init(document.getElementById('scheduleChart'));
+                        chart.setOption({
+                            tooltip: { trigger: 'axis' },
+                            legend: { data: ['总日程', '已完成'] },
+                            xAxis: {
+                                type: 'category',
+                                data: res.data.map(d => d.date.slice(5))
+                            },
+                            yAxis: { type: 'value' },
+                            series: [
+                                {
+                                    name: '总日程',
+                                    data: res.data.map(d => d.total),
+                                    type: 'bar',
+                                    itemStyle: { color: '#409EFF' }
+                                },
+                                {
+                                    name: '已完成',
+                                    data: res.data.map(d => d.completed),
+                                    type: 'bar',
+                                    itemStyle: { color: '#67C23A' }
+                                }
+                            ]
+                        });
+                    } catch (error) {
+                        console.error('加载日程图表失败', error);
+                    }
+                };
+                
+                // 加载用户列表
+                const loadUsers = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: userPagination.page,
+                            page_size: userPagination.page_size
+                        };
+                        if (userFilters.keyword) params.keyword = userFilters.keyword;
+                        
+                        const res = await api.get('/api/admin/users', { params });
+                        users.value = res.items;
+                        userPagination.total = res.total;
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('加载用户列表失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                // 切换用户状态
+                const toggleUserStatus = async (user) => {
+                    try {
+                        await api.put(`/api/admin/users/${user.id}/toggle`);
+                        ElementPlus.ElMessage.success('操作成功');
+                        loadUsers();
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('操作失败');
+                    }
+                };
+                
+                // 加载日程列表
+                const loadSchedules = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: schedulePagination.page,
+                            page_size: schedulePagination.page_size
+                        };
+                        if (scheduleFilters.status) params.status = scheduleFilters.status;
+                        if (scheduleFilters.priority) params.priority = scheduleFilters.priority;
+                        
+                        const res = await api.get('/api/admin/schedules', { params });
+                        schedules.value = res.items;
+                        schedulePagination.total = res.total;
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('加载日程列表失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                // 删除日程
+                const deleteSchedule = async (id) => {
+                    try {
+                        await ElementPlus.ElMessageBox.confirm('确定要删除这个日程吗？', '提示', {
+                            type: 'warning'
+                        });
+                        await api.delete(`/api/admin/schedules/${id}`);
+                        ElementPlus.ElMessage.success('删除成功');
+                        loadSchedules();
+                    } catch (error) {
+                        if (error !== 'cancel') {
+                            ElementPlus.ElMessage.error('删除失败');
+                        }
+                    }
+                };
+                
+                // 加载知识库列表
+                const loadKnowledge = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: knowledgePagination.page,
+                            page_size: knowledgePagination.page_size
+                        };
+                        if (knowledgeFilters.is_active !== null) params.is_active = knowledgeFilters.is_active;
+                        
+                        const res = await api.get('/api/admin/knowledge', { params });
+                        knowledge.value = res.items;
+                        knowledgePagination.total = res.total;
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('加载知识库失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                // 查看知识库
+                const viewKnowledge = (item) => {
+                    ElementPlus.ElMessageBox.alert(item.content, item.title || '知识库文档', {
+                        confirmButtonText: '关闭'
+                    });
+                };
+                
+                // 添加知识库
+                const addKnowledge = async () => {
+                    if (!knowledgeForm.content) {
+                        ElementPlus.ElMessage.warning('请输入内容');
+                        return;
+                    }
+                    
+                    try {
+                        const params = new URLSearchParams(knowledgeForm);
+                        await api.post('/api/admin/knowledge', params);
+                        ElementPlus.ElMessage.success('添加成功');
+                        showAddKnowledgeDialog.value = false;
+                        loadKnowledge();
+                        // 重置表单
+                        Object.assign(knowledgeForm, { title: '', content: '', source_type: '教务通知', category: '' });
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('添加失败');
+                    }
+                };
+                
+                // 删除知识库
+                const deleteKnowledge = async (id) => {
+                    try {
+                        await ElementPlus.ElMessageBox.confirm('确定要删除这个文档吗？', '提示', {
+                            type: 'warning'
+                        });
+                        await api.delete(`/api/admin/knowledge/${id}`);
+                        ElementPlus.ElMessage.success('删除成功');
+                        loadKnowledge();
+                    } catch (error) {
+                        if (error !== 'cancel') {
+                            ElementPlus.ElMessage.error('删除失败');
+                        }
+                    }
+                };
+                
+                // 加载提醒日志
+                const loadReminders = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: reminderPagination.page,
+                            page_size: reminderPagination.page_size
+                        };
+                        const res = await api.get('/api/admin/reminders', { params });
+                        reminders.value = res.items;
+                        reminderPagination.total = res.total;
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('加载提醒日志失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                // 加载采集信息
+                const loadCollectedInfo = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: collectedPagination.page,
+                            page_size: collectedPagination.page_size,
+                            source_type: collectedFilters.source_type || undefined,
+                            priority: collectedFilters.priority || undefined,
+                            status: collectedFilters.status || undefined
+                        };
+                        const res = await api.get('/api/admin/collected-info', { params });
+                        collectedInfo.value = res.items || [];
+                        collectedPagination.total = res.total || 0;
+                    } catch (error) {
+                        console.error('加载采集信息失败:', error);
+                        ElementPlus.ElMessage.error('加载采集信息失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                // 查看采集信息详情
+                const viewCollectedInfo = (item) => {
+                    const tags = item.tags && Array.isArray(item.tags) ? item.tags.join(', ') : '-';
+                    let content = `<div><p><strong>来源：</strong>${item.source || '-'}</p>`;
+                    content += `<p><strong>发送者：</strong>${item.sender || '-'}</p>`;
+                    content += `<p><strong>时间：</strong>${formatDate(item.timestamp)}</p>`;
+                    content += `<p><strong>优先级：</strong>${item.priority === 'high' ? '高' : item.priority === 'medium' ? '中' : '低'}</p>`;
+                    content += `<p><strong>标签：</strong>${tags}</p>`;
+                    content += `<p><strong>内容：</strong></p><p>${item.content || '-'}</p></div>`;
+                    ElementPlus.ElMessageBox.alert(content, '采集信息详情', {
+                        confirmButtonText: '关闭',
+                        dangerouslyUseHTMLString: true
+                    });
+                };
+                
+                // 标记采集信息为已读
+                const markCollectedAsRead = async (item) => {
+                    try {
+                        await api.put(`/api/admin/collected-info/${item.id}/status?status=read`);
+                        item.status = 'read';
+                        ElementPlus.ElMessage.success('标记成功');
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('标记失败');
+                    }
+                };
+                
+                // 加载系统信息
+                const loadSystemInfo = async () => {
+                    try {
+                        systemInfo.value = await api.get('/api/admin/system/info');
+                    } catch (error) {
+                        console.error('加载系统信息失败', error);
+                    }
+                };
+                
+                // 格式化日期
+                const formatDate = (dateStr) => {
+                    if (!dateStr) return '-';
+                    const date = new Date(dateStr);
+                    return date.toLocaleString('zh-CN', { 
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                };
+                
+                // 监听菜单切换
+                watch(activeMenu, (newVal) => {
+                    if (newVal === 'dashboard') loadDashboard();
+                    else if (newVal === 'users') loadUsers();
+                    else if (newVal === 'schedules') loadSchedules();
+                    else if (newVal === 'knowledge') loadKnowledge();
+                    else if (newVal === 'collected') loadCollectedInfo();
+                    else if (newVal === 'reminders') loadReminders();
+                    else if (newVal === 'settings') loadSystemInfo();
+                });
+                
+                // 初始化
+                onMounted(() => {
+                    if (isLoggedIn.value) {
+                        api.get('/api/v1/auth/me')
+                            .then(res => currentUser.value = res)
+                            .catch(() => logout());
+                        loadDashboard();
+                    }
+                });
+                
+                // 注册图标
+                for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+                    app.component(key, component);
+                }
+                
+                return {
+                    isLoggedIn,
+                    currentUser,
+                    loading,
+                    activeMenu,
+                    pageTitle,
+                    loginForm,
+                    loginFormRef,
+                    loginRules,
+                    stats,
+                    users,
+                    userFilters,
+                    userPagination,
+                    schedules,
+                    scheduleFilters,
+                    schedulePagination,
+                    knowledge,
+                    knowledgeFilters,
+                    knowledgePagination,
+                    showAddKnowledgeDialog,
+                    knowledgeForm,
+                    reminders,
+                    reminderPagination,
+                    systemInfo,
+                    handleLogin,
+                    handleCommand,
+                    loadUsers,
+                    toggleUserStatus,
+                    loadSchedules,
+                    deleteSchedule,
+                    loadKnowledge,
+                    viewKnowledge,
+                    addKnowledge,
+                    deleteKnowledge,
+                    loadReminders,
+                    formatDate
+                };
+            }
+        });
+        
+        app.use(ElementPlus);
+        app.mount('#app');
+    </script>
+</body>
+</html>

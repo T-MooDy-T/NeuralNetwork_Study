@@ -48,7 +48,7 @@ def mse_loss(y_true, y_pred):
     """
     均方误差损失函数
     
-    数学公式: J = (1/(2m)) * Σ(y_pred - y_true)²
+    数学公式: J = (1/m) * Σ(y_pred - y_true)²
     
     参数:
         y_true: 真实标签，shape=(m, output_size)
@@ -59,8 +59,8 @@ def mse_loss(y_true, y_pred):
     
     功能说明:
         - 衡量预测值与真实值之间的平均平方差
-        - 除以 2 是为了在求导时抵消系数，简化计算
         - 常用于回归问题或二分类的输出层
+        - 与反向传播梯度计算保持数学一致性
     
     注意事项:
         1. 量纲问题：MSE 结果的单位是原数据单位的平方
@@ -73,6 +73,9 @@ def mse_loss(y_true, y_pred):
         
         4. 数值稳定性：如果预测值和真实值非常大，可能导致数值溢出
            实际使用时通常先对数据进行归一化处理
+        
+        5. 梯度一致性：损失函数与反向传播梯度计算保持一致，
+           确保梯度下降的数学正确性
     """
     m = y_true.shape[0]  # 样本数量
-    return np.sum((y_pred - y_true) ** 2) / (2 * m)
+    return np.sum((y_pred - y_true) ** 2) / m

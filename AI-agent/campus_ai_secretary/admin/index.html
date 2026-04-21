@@ -6,9 +6,9 @@
     <title>校园 AI 秘书 - 管理后台</title>
     
     <!-- Element Plus CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css?v=1.0">
     <!-- ECharts -->
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js?v=1.0"></script>
     
     <style>
         * {
@@ -205,31 +205,32 @@
                     class="sidebar-menu"
                 >
                     <el-menu-item index="dashboard" @click="activeMenu = 'dashboard'">
-                        <el-icon><DataAnalysis /></el-icon>
+                        <el-icon><component :is="'DataAnalysis'" /></el-icon>
                         <span>仪表盘</span>
                     </el-menu-item>
                     <el-menu-item index="users" @click="activeMenu = 'users'">
-                        <el-icon><User /></el-icon>
+                        <el-icon><component :is="'User'" /></el-icon>
                         <span>用户管理</span>
                     </el-menu-item>
                     <el-menu-item index="schedules" @click="activeMenu = 'schedules'">
-                        <el-icon><Calendar /></el-icon>
+                        <el-icon><component :is="'Calendar'" /></el-icon>
                         <span>日程管理</span>
                     </el-menu-item>
                     <el-menu-item index="knowledge" @click="activeMenu = 'knowledge'">
-                        <el-icon><Document /></el-icon>
+                        <el-icon><component :is="'Document'" /></el-icon>
                         <span>知识库</span>
                     </el-menu-item>
                     <el-menu-item index="collected" @click="activeMenu = 'collected'">
-                        <el-icon><Message /></el-icon>
+                        <el-icon><component :is="'Message'" /></el-icon>
                         <span>采集信息</span>
                     </el-menu-item>
+
                     <el-menu-item index="reminders" @click="activeMenu = 'reminders'">
-                        <el-icon><Bell /></el-icon>
+                        <el-icon><component :is="'Bell'" /></el-icon>
                         <span>提醒日志</span>
                     </el-menu-item>
                     <el-menu-item index="settings" @click="activeMenu = 'settings'">
-                        <el-icon><Setting /></el-icon>
+                        <el-icon><component :is="'Setting'" /></el-icon>
                         <span>系统设置</span>
                     </el-menu-item>
                 </el-menu>
@@ -243,9 +244,9 @@
                     <div>
                         <el-dropdown @command="handleCommand">
                             <span style="cursor: pointer;">
-                                <el-icon><UserFilled /></el-icon>
+                                <el-icon><component :is="'UserFilled'" /></el-icon>
                                 {{ currentUser.username }}
-                                <el-icon><ArrowDown /></el-icon>
+                                <el-icon><component :is="'ArrowDown'" /></el-icon>
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
@@ -436,7 +437,7 @@
                         <div class="table-toolbar">
                             <div>
                                 <el-button type="primary" @click="showAddKnowledgeDialog = true">
-                                    <el-icon><Plus /></el-icon> 添加文档
+                                    <el-icon><component :is="'Plus'" /></el-icon> 添加文档
                                 </el-button>
                             </div>
                             <div>
@@ -555,29 +556,32 @@
                             <el-table-column prop="source" label="来源"></el-table-column>
                             <el-table-column prop="source_type" label="来源类型">
                                 <template #default="{ row }">
-                                    <el-tag :type="row.source_type === 'qq_group' ? 'primary' : row.source_type === 'wechat_chat' ? 'success' : 'warning'">
+                                    <el-tag v-if="row && row.source_type" :type="row.source_type === 'qq_group' ? 'primary' : row.source_type === 'wechat_chat' ? 'success' : 'warning'">
                                         {{ row.source_type === 'qq_group' ? 'QQ群' : row.source_type === 'wechat_chat' ? '微信群' : '公众号' }}
                                     </el-tag>
+                                    <span v-else>-</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="sender" label="发送者"></el-table-column>
                             <el-table-column prop="content" label="内容" width="300">
                                 <template #default="{ row }">
-                                    {{ row.content.length > 50 ? row.content.slice(0, 50) + '...' : row.content }}
+                                    {{ row && row.content && row.content.length > 50 ? row.content.slice(0, 50) + '...' : (row && row.content || '-') }}
                                 </template>
                             </el-table-column>
                             <el-table-column prop="priority" label="优先级">
                                 <template #default="{ row }">
-                                    <el-tag :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
+                                    <el-tag v-if="row && row.priority" :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
                                         {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
                                     </el-tag>
+                                    <span v-else>-</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="status" label="状态">
                                 <template #default="{ row }">
-                                    <el-tag :type="row.status === 'unread' ? 'warning' : row.status === 'read' ? 'info' : 'success'">
+                                    <el-tag v-if="row && row.status" :type="row.status === 'unread' ? 'warning' : row.status === 'read' ? 'info' : 'success'">
                                         {{ row.status === 'unread' ? '未读' : row.status === 'read' ? '已读' : '已处理' }}
                                     </el-tag>
+                                    <span v-else>-</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="timestamp" label="时间">
@@ -659,12 +663,13 @@
     <!-- Element Plus -->
     <script src="https://unpkg.com/element-plus"></script>
     <!-- Element Plus Icons -->
-    <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+    <script src="https://unpkg.com/@element-plus/icons-vue/dist/index.iife.js"></script>
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <script>
-        const { createApp, ref, reactive, computed, onMounted, watch } = Vue;
+        const { createApp, ref, reactive, computed, onMounted, watch, onUnmounted } = Vue;
+        const { ElMessage, ElMessageBox } = ElementPlus;
         
         const app = createApp({
             setup() {
@@ -705,14 +710,14 @@
                 const showAddKnowledgeDialog = ref(false);
                 const knowledgeForm = reactive({ title: '', content: '', source_type: '教务通知', category: '' });
                 
-                // 提醒日志
-                const reminders = ref([]);
-                const reminderPagination = reactive({ page: 1, page_size: 50, total: 0 });
-                
                 // 采集信息
                 const collectedInfo = ref([]);
                 const collectedFilters = reactive({ source_type: '', priority: '', status: '' });
                 const collectedPagination = reactive({ page: 1, page_size: 20, total: 0 });
+                
+                // 提醒日志
+                const reminders = ref([]);
+                const reminderPagination = reactive({ page: 1, page_size: 50, total: 0 });
                 
                 // 系统信息
                 const systemInfo = ref({});
@@ -722,9 +727,9 @@
                     const titles = {
                         dashboard: '仪表盘',
                         users: '用户管理',
+                        collected: '采集信息',
                         schedules: '日程管理',
                         knowledge: '知识库',
-                        collected: '采集信息',
                         reminders: '提醒日志',
                         settings: '系统设置'
                     };
@@ -779,10 +784,10 @@
                             const userRes = await api.get('/api/v1/auth/me');
                             currentUser.value = userRes;
                             
-                            ElementPlus.ElMessage.success('登录成功');
+                            ElMessage.success('登录成功');
                             loadDashboard();
                         } catch (error) {
-                            ElementPlus.ElMessage.error(error.response?.data?.detail || '登录失败');
+                            ElMessage.error(error.response?.data?.detail || '登录失败');
                         } finally {
                             loading.value = false;
                         }
@@ -794,7 +799,7 @@
                     localStorage.removeItem('token');
                     isLoggedIn.value = false;
                     currentUser.value = { username: '', role: '' };
-                    ElementPlus.ElMessage.info('已退出登录');
+                    ElMessage.info('已退出登录');
                 };
                 
                 const handleCommand = (command) => {
@@ -812,7 +817,7 @@
                             loadScheduleChart();
                         }, 100);
                     } catch (error) {
-                        ElementPlus.ElMessage.error('加载统计数据失败');
+                        ElMessage.error('加载统计数据失败');
                     }
                 };
                 
@@ -888,7 +893,7 @@
                         users.value = res.items;
                         userPagination.total = res.total;
                     } catch (error) {
-                        ElementPlus.ElMessage.error('加载用户列表失败');
+                        ElMessage.error('加载用户列表失败');
                     } finally {
                         loading.value = false;
                     }
@@ -898,10 +903,10 @@
                 const toggleUserStatus = async (user) => {
                     try {
                         await api.put(`/api/admin/users/${user.id}/toggle`);
-                        ElementPlus.ElMessage.success('操作成功');
+                        ElMessage.success('操作成功');
                         loadUsers();
                     } catch (error) {
-                        ElementPlus.ElMessage.error('操作失败');
+                        ElMessage.error('操作失败');
                     }
                 };
                 
@@ -920,7 +925,7 @@
                         schedules.value = res.items;
                         schedulePagination.total = res.total;
                     } catch (error) {
-                        ElementPlus.ElMessage.error('加载日程列表失败');
+                        ElMessage.error('加载日程列表失败');
                     } finally {
                         loading.value = false;
                     }
@@ -929,15 +934,15 @@
                 // 删除日程
                 const deleteSchedule = async (id) => {
                     try {
-                        await ElementPlus.ElMessageBox.confirm('确定要删除这个日程吗？', '提示', {
+                        await ElMessageBox.confirm('确定要删除这个日程吗？', '提示', {
                             type: 'warning'
                         });
                         await api.delete(`/api/admin/schedules/${id}`);
-                        ElementPlus.ElMessage.success('删除成功');
+                        ElMessage.success('删除成功');
                         loadSchedules();
                     } catch (error) {
                         if (error !== 'cancel') {
-                            ElementPlus.ElMessage.error('删除失败');
+                            ElMessage.error('删除失败');
                         }
                     }
                 };
@@ -956,7 +961,7 @@
                         knowledge.value = res.items;
                         knowledgePagination.total = res.total;
                     } catch (error) {
-                        ElementPlus.ElMessage.error('加载知识库失败');
+                        ElMessage.error('加载知识库失败');
                     } finally {
                         loading.value = false;
                     }
@@ -964,7 +969,7 @@
                 
                 // 查看知识库
                 const viewKnowledge = (item) => {
-                    ElementPlus.ElMessageBox.alert(item.content, item.title || '知识库文档', {
+                    ElMessageBox.alert(item.content, item.title || '知识库文档', {
                         confirmButtonText: '关闭'
                     });
                 };
@@ -972,54 +977,44 @@
                 // 添加知识库
                 const addKnowledge = async () => {
                     if (!knowledgeForm.content) {
-                        ElementPlus.ElMessage.warning('请输入内容');
+                        ElMessage.warning('请输入内容');
                         return;
                     }
                     
                     try {
-                        const params = new URLSearchParams(knowledgeForm);
-                        await api.post('/api/admin/knowledge', params);
-                        ElementPlus.ElMessage.success('添加成功');
+                        const data = {
+                            title: knowledgeForm.title,
+                            content: knowledgeForm.content,
+                            source_type: knowledgeForm.source_type,
+                            category: knowledgeForm.category
+                        };
+                        await api.post('/api/admin/knowledge', data, {
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        ElMessage.success('添加成功');
                         showAddKnowledgeDialog.value = false;
                         loadKnowledge();
                         // 重置表单
                         Object.assign(knowledgeForm, { title: '', content: '', source_type: '教务通知', category: '' });
                     } catch (error) {
-                        ElementPlus.ElMessage.error('添加失败');
+                        console.error('添加知识库失败:', error);
+                        ElMessage.error(error.response?.data?.detail || '添加失败');
                     }
                 };
                 
                 // 删除知识库
                 const deleteKnowledge = async (id) => {
                     try {
-                        await ElementPlus.ElMessageBox.confirm('确定要删除这个文档吗？', '提示', {
+                        await ElMessageBox.confirm('确定要删除这个文档吗？', '提示', {
                             type: 'warning'
                         });
                         await api.delete(`/api/admin/knowledge/${id}`);
-                        ElementPlus.ElMessage.success('删除成功');
+                        ElMessage.success('删除成功');
                         loadKnowledge();
                     } catch (error) {
                         if (error !== 'cancel') {
-                            ElementPlus.ElMessage.error('删除失败');
+                            ElMessage.error('删除失败');
                         }
-                    }
-                };
-                
-                // 加载提醒日志
-                const loadReminders = async () => {
-                    loading.value = true;
-                    try {
-                        const params = {
-                            page: reminderPagination.page,
-                            page_size: reminderPagination.page_size
-                        };
-                        const res = await api.get('/api/admin/reminders', { params });
-                        reminders.value = res.items;
-                        reminderPagination.total = res.total;
-                    } catch (error) {
-                        ElementPlus.ElMessage.error('加载提醒日志失败');
-                    } finally {
-                        loading.value = false;
                     }
                 };
                 
@@ -1039,7 +1034,7 @@
                         collectedPagination.total = res.total || 0;
                     } catch (error) {
                         console.error('加载采集信息失败:', error);
-                        ElementPlus.ElMessage.error('加载采集信息失败');
+                        ElMessage.error('加载采集信息失败');
                     } finally {
                         loading.value = false;
                     }
@@ -1054,7 +1049,7 @@
                     content += `<p><strong>优先级：</strong>${item.priority === 'high' ? '高' : item.priority === 'medium' ? '中' : '低'}</p>`;
                     content += `<p><strong>标签：</strong>${tags}</p>`;
                     content += `<p><strong>内容：</strong></p><p>${item.content || '-'}</p></div>`;
-                    ElementPlus.ElMessageBox.alert(content, '采集信息详情', {
+                    ElMessageBox.alert(content, '采集信息详情', {
                         confirmButtonText: '关闭',
                         dangerouslyUseHTMLString: true
                     });
@@ -1063,11 +1058,29 @@
                 // 标记采集信息为已读
                 const markCollectedAsRead = async (item) => {
                     try {
-                        await api.put(`/api/admin/collected-info/${item.id}/status?status=read`);
+                        await api.put(`/api/admin/collected-info/${item.id}/status`, { status: 'read' });
                         item.status = 'read';
-                        ElementPlus.ElMessage.success('标记成功');
+                        ElMessage.success('标记成功');
                     } catch (error) {
-                        ElementPlus.ElMessage.error('标记失败');
+                        ElMessage.error('标记失败');
+                    }
+                };
+                
+                // 加载提醒日志
+                const loadReminders = async () => {
+                    loading.value = true;
+                    try {
+                        const params = {
+                            page: reminderPagination.page,
+                            page_size: reminderPagination.page_size
+                        };
+                        const res = await api.get('/api/admin/reminders', { params });
+                        reminders.value = res.items;
+                        reminderPagination.total = res.total;
+                    } catch (error) {
+                        ElMessage.error('加载提醒日志失败');
+                    } finally {
+                        loading.value = false;
                     }
                 };
                 
@@ -1114,11 +1127,6 @@
                     }
                 });
                 
-                // 注册图标
-                for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-                    app.component(key, component);
-                }
-                
                 return {
                     isLoggedIn,
                     currentUser,
@@ -1140,6 +1148,9 @@
                     knowledgePagination,
                     showAddKnowledgeDialog,
                     knowledgeForm,
+                    collectedInfo,
+                    collectedFilters,
+                    collectedPagination,
                     reminders,
                     reminderPagination,
                     systemInfo,
@@ -1153,6 +1164,9 @@
                     viewKnowledge,
                     addKnowledge,
                     deleteKnowledge,
+                    loadCollectedInfo,
+                    viewCollectedInfo,
+                    markCollectedAsRead,
                     loadReminders,
                     formatDate
                 };
@@ -1160,6 +1174,12 @@
         });
         
         app.use(ElementPlus);
+        
+        // 注册图标
+        for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+            app.component(key, component);
+        }
+        
         app.mount('#app');
     </script>
 </body>

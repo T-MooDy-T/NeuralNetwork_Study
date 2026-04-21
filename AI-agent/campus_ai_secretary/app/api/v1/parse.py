@@ -5,22 +5,9 @@ from typing import Optional
 from loguru import logger
 
 from ...models.schedule import ParseResult, ScheduleCreate
-from ...core.parser import EntityParser
-from ...core.llm import QwenLLM
+from ...dependencies import get_parser
 
 router = APIRouter()
-
-# 全局解析器实例
-_parser: Optional[EntityParser] = None
-
-
-def get_parser() -> EntityParser:
-    """获取解析器实例"""
-    global _parser
-    if _parser is None:
-        llm = QwenLLM()
-        _parser = EntityParser(llm)
-    return _parser
 
 
 @router.post("/text", response_model=ParseResult, summary="解析文本")

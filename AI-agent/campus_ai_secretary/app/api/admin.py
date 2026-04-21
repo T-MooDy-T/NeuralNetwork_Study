@@ -1,6 +1,6 @@
 """管理后台 API"""
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Form, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import func, and_
 from typing import List, Optional
@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from loguru import logger
 
 from ..database.connection import get_db
-from ..database.models import User, Schedule, KnowledgeBase, ReminderLog, SystemStats, CollectedInfo
+from ..database.models import User, Schedule, KnowledgeBase, ReminderLog, CollectedInfo
 from ..core.auth import get_current_admin_user, TokenData
 
 router = APIRouter(prefix="/admin", tags=["管理后台"])
@@ -350,34 +350,61 @@ async def list_knowledge(
     }
 
 
+class KnowledgeBaseCreate(BaseModel):
+    title: Optional[str] = None
+    content: str
+    source_type: str
+    category: Optional[str] = None
+    tags: Optional[List[str]] = None
+
+
 @router.post("/knowledge", summary="添加知识库")
 async def add_knowledge(
-    title: str,
-    content: str,
-    source_type: str,
-    category: Optional[str] = None,
-    tags: Optional[str] = None,
+    request: Request,
+    title: Optional[str] = Form(None),
+    content: str = Form(None),
+    source_type: str = Form("其他"),
+    category: Optional[str] = Form(None),
+    tags: Optional[str] = Form(None),
     current_user: TokenData = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
     """添加知识库文档"""
     import json
     
+    try:
+        body = await request.json()
+        title = body.get('title') or title
+        content = body.get('content') or content
+        source_type = body.get('source_type') or source_type
+        category = body.get('category') or category
+        tags = body.get('tags') or tags
+    except:
+        pass
+    
+    if not content:
+        raise HTTPException(status_code=400, detail="内容不能为空")
+    
+    # 根据用户名获取实际用户ID
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    
     kb = KnowledgeBase(
         title=title,
         content=content,
         source_type=source_type,
         category=category,
-        tags=json.loads(tags) if tags else [],
+        tags=json.loads(tags) if isinstance(tags, str) else (tags or []),
         is_active=True,
-        created_by=current_user.user_id
+        created_by=user.id
     )
     
     db.add(kb)
     db.commit()
     db.refresh(kb)
     
-    logger.info(f"管理员添加知识库：{title}")
+    logger.info(f"管理员添加知识库：{title or '无标题'}")
     
     return {"message": "添加成功", "id": kb.id}
 
@@ -455,7 +482,6 @@ async def list_collected_info(
     current_user: TokenData = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """获取采集信息列表"""
     query = db.query(CollectedInfo)
     
     if source_type:
@@ -499,11 +525,10 @@ async def list_collected_info(
 @router.put("/collected-info/{info_id}/status", summary="更新采集信息状态")
 async def update_collected_info_status(
     info_id: int,
-    status: str,
+    status: str = Form(...),
     current_user: TokenData = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """更新采集信息状态"""
     info = db.query(CollectedInfo).filter(CollectedInfo.id == info_id).first()
     if not info:
         raise HTTPException(status_code=404, detail="采集信息不存在")
@@ -520,7 +545,6 @@ async def delete_collected_info(
     current_user: TokenData = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """删除采集信息"""
     info = db.query(CollectedInfo).filter(CollectedInfo.id == info_id).first()
     if not info:
         raise HTTPException(status_code=404, detail="采集信息不存在")
@@ -536,7 +560,6 @@ async def get_collected_info_stats(
     current_user: TokenData = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """获取采集信息统计"""
     total = db.query(func.count(CollectedInfo.id)).scalar()
     unread = db.query(func.count(CollectedInfo.id)).filter(CollectedInfo.status == "unread").scalar()
     

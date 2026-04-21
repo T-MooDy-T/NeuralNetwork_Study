@@ -1,0 +1,958 @@
+2026-04-21 16:21:37 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:21:37 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:21:37 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:21:37 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:21:47 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:21:47 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:21:47 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:21:47 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:21:51 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:21:51 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:21:51 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:21:51 | ERROR    | 6680   | 14944  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 3 validation errors:
+  {'type': 'missing', 'loc': ('query', 'title'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+  {'type': 'missing', 'loc': ('query', 'source_type'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 353, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:27 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E7%A4%BE%E5%9B%A2%E6%8B%9B%E6%96%B0&content=%E7%A4%BE%E5%9B%A2%E6%8B%9B%E6%96%B0%E6%B4%BB%E5%8A%A814%EF%BC%9A00-16%EF%BC%9A00&source_type=%E7%A4%BE%E5%9B%A2%E5%85%AC%E5%91%8A&category=social'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:27 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:27 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:27 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E7%A4%BE%E5%9B%A2%E6%8B%9B%E6%96%B0&content=%E7%A4%BE%E5%9B%A2%E6%8B%9B%E6%96%B0%E6%B4%BB%E5%8A%A814%EF%BC%9A00-16%EF%BC%9A00&source_type=%E7%A4%BE%E5%9B%A2%E5%85%AC%E5%91%8A&category=social'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:56 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:56 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:56 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:56 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:31:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:32:40 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:32:40 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:32:40 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:32:40 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E5%85%B6%E4%BB%96&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:32:42 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:32:42 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:32:42 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:32:42 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=test&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:44:38 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:44:38 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:44:38 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:44:38 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=%E6%B5%8B%E8%AF%95'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:44:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=facility'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:44:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:44:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:44:57 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=facility'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:45:30 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=facility'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:45:30 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:45:30 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:45:30 | ERROR    | 25432  | 21212  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=test&content=%E6%B5%8B%E8%AF%95&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=facility'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:55:08 | ERROR    | 18848  | 12600  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=%E6%B5%8B%E8%AF%95test&source_type=%E5%85%B6%E4%BB%96&category=test'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:55:08 | ERROR    | 18848  | 12600  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:55:08 | ERROR    | 18848  | 12600  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:55:08 | ERROR    | 18848  | 12600  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=%E6%B5%8B%E8%AF%95&content=%E6%B5%8B%E8%AF%95test&source_type=%E5%85%B6%E4%BB%96&category=test'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 16:59:06 | ERROR    | 3468   | 28196  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=Form+Test&content=Test+content+via+form&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=Test'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 16:59:06 | ERROR    | 3468   | 28196  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 16:59:06 | ERROR    | 3468   | 28196  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 16:59:07 | ERROR    | 3468   | 28196  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'model_attributes_type', 'loc': ('body',), 'msg': 'Input should be a valid dictionary or object to extract fields from', 'input': b'title=Form+Test&content=Test+content+via+form&source_type=%E6%95%99%E5%8A%A1%E9%80%9A%E7%9F%A5&category=Test'}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 17:04:25 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 17:04:25 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 17:04:25 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 17:04:25 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 17:05:28 | ERROR    | 26332  | 21040  | app.middleware:dispatch:31 | REQUEST_ERROR | POST /api/admin/knowledge | duration=14.79ms | error=IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:05:28 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:42 | 全局异常: IntegrityError - (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:05:28 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 17:05:28 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 17:05:28 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 51, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 27, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 385, in add_knowledge
+    db.commit()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4312, in flush
+    self._flush(objects)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4448, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4408, in _flush
+    flush_context.execute()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 28, 708438), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+
+2026-04-21 17:05:33 | ERROR    | 26332  | 21040  | app.middleware:dispatch:31 | REQUEST_ERROR | POST /api/admin/knowledge | duration=16.78ms | error=IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:05:33 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:42 | 全局异常: IntegrityError - (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:05:33 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 17:05:33 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 17:05:33 | ERROR    | 26332  | 21040  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 51, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 27, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 385, in add_knowledge
+    db.commit()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4312, in flush
+    self._flush(objects)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4448, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4408, in _flush
+    flush_context.execute()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': '测试', 'content': 'test', 'source_type': '教务通知', 'source_url': None, 'category': 'test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'updated_at': datetime.datetime(2026, 4, 21, 17, 5, 33, 502961), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+
+2026-04-21 17:14:47 | ERROR    | 17800  | 8600   | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+2026-04-21 17:14:47 | ERROR    | 17800  | 8600   | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 17:14:47 | ERROR    | 17800  | 8600   | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 17:14:47 | ERROR    | 17800  | 8600   | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 361, in add_knowledge
+    POST /api/admin/knowledge
+
+
+2026-04-21 17:19:28 | ERROR    | 13808  | 2780   | app.middleware:dispatch:31 | REQUEST_ERROR | POST /api/admin/knowledge | duration=17.02ms | error=IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': 'test', 'content': '测试', 'source_type': '教务通知', 'source_url': None, 'category': 'Test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'updated_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:19:28 | ERROR    | 13808  | 2780   | app.exceptions:global_exception_handler:42 | 全局异常: IntegrityError - (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': 'test', 'content': '测试', 'source_type': '教务通知', 'source_url': None, 'category': 'Test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'updated_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+2026-04-21 17:19:28 | ERROR    | 13808  | 2780   | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 17:19:28 | ERROR    | 13808  | 2780   | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 17:19:28 | ERROR    | 13808  | 2780   | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 51, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\middleware.py", line 27, in dispatch
+    response = await call_next(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 399, in add_knowledge
+    db.commit()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4312, in flush
+    self._flush(objects)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4448, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 4408, in _flush
+    flush_context.execute()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add or update a child row: a foreign key constraint fails (`campus_ai`.`knowledge_base`, CONSTRAINT `knowledge_base_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`))')
+[SQL: INSERT INTO knowledge_base (title, content, source_type, source_url, category, tags, priority, valid_from, valid_to, is_active, view_count, created_at, updated_at, created_by) VALUES (%(title)s, %(content)s, %(source_type)s, %(source_url)s, %(category)s, %(tags)s, %(priority)s, %(valid_from)s, %(valid_to)s, %(is_active)s, %(view_count)s, %(created_at)s, %(updated_at)s, %(created_by)s)]
+[parameters: {'title': 'test', 'content': '测试', 'source_type': '教务通知', 'source_url': None, 'category': 'Test', 'tags': '[]', 'priority': 'medium', 'valid_from': None, 'valid_to': None, 'is_active': 1, 'view_count': 0, 'created_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'updated_at': datetime.datetime(2026, 4, 21, 17, 19, 28, 151838), 'created_by': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+

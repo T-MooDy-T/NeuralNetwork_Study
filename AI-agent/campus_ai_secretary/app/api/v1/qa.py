@@ -5,30 +5,9 @@ from typing import Optional
 from loguru import logger
 
 from ...models.schedule import QARequest, QAResponse, ScheduleCreate
-from ...core.rag import RAGEngine
-from ...core.llm import QwenLLM
+from ...dependencies import get_rag_engine, get_llm
 
 router = APIRouter()
-
-# 全局实例
-_rag_engine: Optional[RAGEngine] = None
-_llm: Optional[QwenLLM] = None
-
-
-def get_rag_engine() -> RAGEngine:
-    """获取 RAG 引擎实例"""
-    global _rag_engine
-    if _rag_engine is None:
-        _rag_engine = RAGEngine(use_memory=True)
-    return _rag_engine
-
-
-def get_llm() -> QwenLLM:
-    """获取 LLM 实例"""
-    global _llm
-    if _llm is None:
-        _llm = QwenLLM()
-    return _llm
 
 
 @router.post("/ask", response_model=QAResponse, summary="智能问答")

@@ -6,20 +6,9 @@ from datetime import datetime
 from loguru import logger
 
 from ...models.schedule import ScheduleItem, ScheduleCreate, ScheduleUpdate, ScheduleQuery, Priority
-from ...core.scheduler import ScheduleManager
+from ...dependencies import get_scheduler
 
 router = APIRouter()
-
-# 全局日程管理器（实际应该用依赖注入）
-_scheduler: Optional[ScheduleManager] = None
-
-
-def get_scheduler() -> ScheduleManager:
-    """获取日程管理器实例"""
-    global _scheduler
-    if _scheduler is None:
-        _scheduler = ScheduleManager(use_memory=True)
-    return _scheduler
 
 
 @router.post("/create", response_model=ScheduleItem, summary="创建日程")

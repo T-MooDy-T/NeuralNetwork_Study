@@ -956,3 +956,559 @@ sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1452, 'Cannot add o
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 
 
+2026-04-21 19:14:11 | ERROR    | 17352  | 9624   | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\v1\parse.py", line 13, in parse_text
+    POST /api/v1/parse/text
+
+2026-04-21 19:14:11 | ERROR    | 17352  | 9624   | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/parse/text
+
+2026-04-21 19:14:11 | ERROR    | 17352  | 9624   | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 19:14:11 | ERROR    | 17352  | 9624   | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\v1\parse.py", line 13, in parse_text
+    POST /api/v1/parse/text
+
+
+2026-04-21 19:14:34 | ERROR    | 4016   | 12768  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\v1\parse.py", line 13, in parse_text
+    POST /api/v1/parse/text
+
+2026-04-21 19:14:34 | ERROR    | 4016   | 12768  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/parse/text
+
+2026-04-21 19:14:34 | ERROR    | 4016   | 12768  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 19:14:34 | ERROR    | 4016   | 12768  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('query', 'content'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\v1\parse.py", line 13, in parse_text
+    POST /api/v1/parse/text
+
+
+2026-04-21 19:44:46 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+2026-04-21 19:44:46 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/send-reminder-test
+
+2026-04-21 19:44:46 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 19:44:46 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+
+2026-04-21 19:44:54 | ERROR    | 2608   | 28340  | app.api.admin:send_message:644 | 连接 OpenClaw 失败: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/message/send (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216CEB0A430>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+
+2026-04-21 19:45:02 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+2026-04-21 19:45:02 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/send-reminder-test
+
+2026-04-21 19:45:02 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 19:45:02 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+
+2026-04-21 19:45:29 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:42 | 全局异常: RequestValidationError - 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+2026-04-21 19:45:29 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/send-reminder-test
+
+2026-04-21 19:45:29 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 19:45:29 | ERROR    | 2608   | 28340  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 107, in app
+    response = await f(request)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\fastapi\routing.py", line 468, in app
+    raise validation_error
+fastapi.exceptions.RequestValidationError: 1 validation error:
+  {'type': 'missing', 'loc': ('body', 'user_id'), 'msg': 'Field required', 'input': None}
+
+  File "E:\Code\ai-test\NeuralNetwork_Study\AI-agent\campus_ai_secretary\app\api\admin.py", line 648, in send_reminder_test
+    POST /api/admin/send-reminder-test
+
+
+2026-04-21 19:45:35 | ERROR    | 2608   | 28340  | app.api.admin:send_message:644 | 连接 OpenClaw 失败: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/message/send (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216CEAFF970>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+
+2026-04-21 19:45:58 | ERROR    | 2608   | 28340  | app.api.admin:send_message:644 | 连接 OpenClaw 失败: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/message/send (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000216CEAD8910>: Failed to establish a new connection: [WinError 10061] 由于目标计算机积极拒绝，无法连接。'))
+
+2026-04-21 22:46:20 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:20 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:20 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:20 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:24 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:24 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:24 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:24 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:35 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:35 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:35 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:35 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/admin/knowledge
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: GET
+
+2026-04-21 22:46:44 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:01 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:01 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:01 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:01 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:02 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:10 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:10 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:10 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:10 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:19 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:19 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:19 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:19 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:21 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:21 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:21 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:21 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:23 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:23 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:23 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:23 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:31 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:31 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:31 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:31 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 238, in __call__
+    await send({"type": "http.response.body", "body": chunk, "more_body": True})
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 505, in send
+    output = self.conn.send(event=h11.Data(data=data))
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 241, in __call__
+    await send({"type": "http.response.body", "body": b"", "more_body": False})
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 505, in send
+    output = self.conn.send(event=h11.Data(data=data))
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:42 | 全局异常: LocalProtocolError - Can't send data when our state is ERROR
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:43 | 请求路径: /api/v1/smart-push/generate-content
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:44 | 请求方法: POST
+
+2026-04-21 22:47:34 | ERROR    | 33468  | 28960  | app.exceptions:global_exception_handler:45 | 完整堆栈:
+Traceback (most recent call last):
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 194, in __call__
+    await response(scope, wrapped_receive, send)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\base.py", line 223, in __call__
+    await send(
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\starlette\middleware\errors.py", line 161, in _send
+    await send(message)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 490, in send
+    output = self.conn.send(event=response)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 538, in send
+    data_list = self.send_with_data_passthrough(event)
+  File "C:\Users\35204\AppData\Local\Programs\Python\Python39\lib\site-packages\h11\_connection.py", line 553, in send_with_data_passthrough
+    raise LocalProtocolError("Can't send data when our state is ERROR")
+h11._util.LocalProtocolError: Can't send data when our state is ERROR
+
+

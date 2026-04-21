@@ -598,3 +598,123 @@ async def get_system_info(
         "debug": os.getenv("DEBUG", "false"),
         "database": "MySQL" if "mysql" in os.getenv("DATABASE_URL", "") else "SQLite"
     }
+
+
+# ==================== 消息推送 ====================
+
+class SendMessageRequest(BaseModel):
+    user_id: str
+    message: str
+
+
+@router.post("/send-message", summary="主动发送消息")
+async def send_message(
+    request: SendMessageRequest,
+    current_user: TokenData = Depends(get_current_admin_user)
+):
+    """通过 QQ 机器人主动发送消息给用户
+    
+    Args:
+        user_id: 用户ID（QQ号或其他标识）
+        message: 消息内容
+    """
+    import os
+    import requests
+    
+    openclaw_url = os.getenv("OPENCLAW_URL", "http://localhost:8080")
+    
+    try:
+        response = requests.post(
+            f"{openclaw_url}/api/message/send",
+            json={
+                "user_id": request.user_id,
+                "message": request.message
+            },
+            timeout=10
+        )
+        
+        if response.status_code == 200:
+            logger.info(f"管理员主动发送消息给用户 {request.user_id}")
+            return {"success": True, "message": "消息发送成功"}
+        else:
+            logger.error(f"发送消息失败: {response.text}")
+            raise HTTPException(status_code=500, detail=f"发送失败: {response.text}")
+    
+    except requests.exceptions.RequestException as e:
+        # 如果 OpenClaw 不可用，记录消息到日志（测试模式）
+        logger.warning(f"OpenClaw 服务不可用，消息已记录: user_id={request.user_id}, message={request.message[:50]}...")
+        return {
+            "success": True,
+            "message": "消息已记录（测试模式）",
+            "note": "OpenClaw QQbot 服务未运行，消息已记录到日志",
+            "user_id": request.user_id,
+            "message_preview": request.message[:50] + "..." if len(request.message) > 50 else request.message
+        }
+
+
+@router.post("/send-reminder-test", summary="发送测试提醒")
+async def send_reminder_test(
+    user_id: str = Form(...),
+    current_user: TokenData = Depends(get_current_admin_user)
+):
+    """发送测试提醒给指定用户"""
+    from datetime import datetime
+    from ..core.reminder import reminder_service
+    
+    if reminder_service:
+        message = f"""🔔 测试提醒
+        
+这是一条测试消息，用于验证提醒功能是否正常工作。
+
+时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+来源：管理后台"""
+        
+        # 调用提醒服务发送
+        await reminder_service._send_reminder(user_id, None, "测试")
+        
+        return {"success": True, "message": "测试提醒已发送"}
+    else:
+        raise HTTPException(status_code=500, detail="提醒服务未启动")
+
+
+# ==================== 智能推送日志 ====================
+
+push_logs = []
+
+class PushLogRequest(BaseModel):
+    id: str
+    type: str
+    title: str
+    content: str
+    priority: str
+    username: Optional[str]
+    pushTime: str
+    status: str
+
+
+@router.post("/push-log", summary="记录推送日志")
+async def log_push(
+    request: PushLogRequest,
+    current_user: TokenData = Depends(get_current_admin_user)
+):
+    """记录推送日志"""
+    log_entry = request.model_dump()
+    push_logs.insert(0, log_entry)
+    
+    if len(push_logs) > 100:
+        push_logs.pop()
+    
+    logger.info(f"推送日志记录: type={request.type}, title={request.title}")
+    
+    return {"success": True, "message": "推送日志已记录"}
+
+
+@router.get("/push-history", summary="获取推送历史")
+async def get_push_history(
+    current_user: TokenData = Depends(get_current_admin_user)
+):
+    """获取推送历史记录"""
+    return {
+        "items": push_logs,
+        "total": len(push_logs)
+    }

@@ -23,6 +23,24 @@ window.usersStore = {
         }
     },
     
+    createUser: async (userForm) => {
+        try {
+            const data = {
+                username: userForm.username,
+                nickname: userForm.nickname || userForm.username,
+                email: userForm.email,
+                password: userForm.password,
+                role: userForm.role || 'user'
+            };
+            await api.createUser(data);
+            ElementPlus.ElMessage.success('创建成功');
+            await window.usersStore.loadUsers();
+        } catch (error) {
+            console.error('创建用户失败:', error);
+            throw error;
+        }
+    },
+    
     toggleUserStatus: async (user) => {
         try {
             await api.updateUserStatus(user.id, !user.is_active);

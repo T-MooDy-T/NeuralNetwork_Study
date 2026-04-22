@@ -23,6 +23,12 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     last_login = Column(DateTime)
     
+    # 岗位匹配相关字段
+    major = Column(String(100))  # 专业
+    skills = Column(String(500))  # 技能，逗号分隔
+    interests = Column(String(500))  # 兴趣爱好，逗号分隔
+    location = Column(String(100))  # 地点/城市
+    
     # 关联
     schedules = relationship("Schedule", back_populates="user")
     reminder_logs = relationship("ReminderLog", back_populates="user")
@@ -111,6 +117,29 @@ class CollectedInfo(Base):
     
     # 关联
     user = relationship("User")
+
+
+class InternshipInfo(Base):
+    """实习信息表"""
+    __tablename__ = "internship_info"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(200), nullable=False)
+    company = Column(String(100))
+    location = Column(String(100))
+    industry = Column(String(100))
+    position = Column(String(100))
+    requirement = Column(Text)
+    description = Column(Text)
+    salary = Column(String(50))
+    deadline = Column(DateTime)
+    source_url = Column(String(500))
+    source = Column(String(100))  # 来源网站
+    tags = Column(JSON)  # ["互联网", "技术", "全职"]
+    priority = Column(String(20), default="normal")  # high, medium, normal
+    status = Column(String(20), default="active")  # active, expired
+    scraped_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now)
 
 
 class SystemStats(Base):

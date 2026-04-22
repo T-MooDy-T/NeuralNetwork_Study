@@ -8,6 +8,32 @@ window.smartPushStore = {
     timeoutId: null,
     dailyUpdateId: null,
     useAIEnhancement: Vue.ref(true),
+    messages: Vue.reactive([]),
+    serviceStatus: Vue.ref('stopped'),
+    loading: Vue.reactive({ value: false }),
+    
+    loadMessages: async () => {
+        window.smartPushStore.loading.value = true;
+        try {
+            await window.smartPushStore.getPushHistory();
+            window.smartPushStore.messages = [...window.smartPushStore.pushHistory];
+            window.smartPushStore.serviceStatus.value = window.smartPushStore.isRunning.value ? 'running' : 'stopped';
+        } catch (error) {
+            console.error('加载消息失败:', error);
+        } finally {
+            window.smartPushStore.loading.value = false;
+        }
+    },
+    
+    startService: async () => {
+        await window.smartPushStore.startSmartPush();
+        window.smartPushStore.serviceStatus.value = 'running';
+    },
+    
+    stopService: async () => {
+        await window.smartPushStore.stopSmartPush();
+        window.smartPushStore.serviceStatus.value = 'stopped';
+    },
     
     priorityMap: {
         high: 3,

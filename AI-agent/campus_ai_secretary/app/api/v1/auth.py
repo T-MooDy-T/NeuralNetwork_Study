@@ -1,9 +1,9 @@
 """认证 API"""
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import APIRouter, Depends, HTTPException, status, Request, Form
 from sqlalchemy.orm import Session
 from datetime import timedelta
+from pydantic import BaseModel
 from loguru import logger
 
 from ...database.connection import get_db
@@ -22,13 +22,34 @@ from ...core.auth import (
 router = APIRouter(prefix="/auth", tags=["认证"])
 
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
 @router.post("/login", response_model=Token, summary="用户登录")
 async def login(
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    request: Request,
+    username: str = Form(None),
+    password: str = Form(None),
     db: Session = Depends(get_db)
 ):
     """用户登录获取令牌"""
-    user = authenticate_user(db, form_data.username, form_data.password)
+    if not username or not password:
+        try:
+            body = await request.json()
+            username = body.get('username')
+            password = body.get('password')
+        except Exception as e:
+            logger.warning(f"无法解析请求体: {e}")
+    
+    if not username or not password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="用户名和密码不能为空"
+        )
+    
+    user = authenticate_user(db, username, password)
     
     if not user:
         raise HTTPException(
@@ -62,9 +83,15 @@ async def login(
     logger.info(f"用户登录：{user.username}")
     
     return {
+        "success": True,
         "access_token": access_token,
         "token_type": "bearer",
-        "expires_in": 1440
+        "expires_in": 1440,
+        "user": {
+            "username": user.username,
+            "user_id": user.id,
+            "role": user.role
+        }
     }
 
 

@@ -1,8 +1,13 @@
 window.collectedStore = {
     collectedInfo: Vue.reactive([]),
+    collectedList: Vue.reactive([]),
     filters: Vue.reactive({ source_type: '', priority: '', status: '' }),
     pagination: Vue.reactive({ page: 1, page_size: 20, total: 0 }),
     loading: Vue.reactive({ value: false }),
+    
+    loadCollected: async () => {
+        await window.collectedStore.loadCollectedInfo();
+    },
     
     loadCollectedInfo: async () => {
         window.collectedStore.loading.value = true;
@@ -16,6 +21,7 @@ window.collectedStore = {
             };
             const res = await api.getCollectedInfo(params);
             window.collectedStore.collectedInfo = res.items || [];
+            window.collectedStore.collectedList = res.items || [];
             window.collectedStore.pagination.total = res.total || 0;
         } catch (error) {
             console.error('加载采集信息失败:', error);
@@ -37,6 +43,17 @@ window.collectedStore = {
             confirmButtonText: '关闭',
             dangerouslyUseHTMLString: true
         });
+    },
+    
+    collectInfo: async () => {
+        try {
+            await api.collectInfo();
+            ElementPlus.ElMessage.success('采集成功');
+            await window.collectedStore.loadCollectedInfo();
+        } catch (error) {
+            console.error('采集信息失败:', error);
+            ElementPlus.ElMessage.error('采集失败');
+        }
     },
     
     markCollectedAsRead: async (item) => {

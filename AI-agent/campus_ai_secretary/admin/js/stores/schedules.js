@@ -24,6 +24,24 @@ window.schedulesStore = {
         }
     },
     
+    createSchedule: async (scheduleForm) => {
+        try {
+            const data = {
+                event_name: scheduleForm.event_name,
+                location: scheduleForm.location,
+                start_time: scheduleForm.start_time,
+                priority: scheduleForm.priority || 'medium',
+                description: scheduleForm.description
+            };
+            await api.createSchedule(data);
+            ElementPlus.ElMessage.success('创建成功');
+            await window.schedulesStore.loadSchedules();
+        } catch (error) {
+            console.error('创建日程失败:', error);
+            throw error;
+        }
+    },
+    
     deleteSchedule: async (id) => {
         try {
             await ElementPlus.ElMessageBox.confirm('确定要删除这个日程吗？', '提示', {

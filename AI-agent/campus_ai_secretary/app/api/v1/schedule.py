@@ -5,7 +5,7 @@ from typing import List, Optional
 from datetime import datetime
 from loguru import logger
 
-from ...models.schedule import ScheduleItem, ScheduleCreate, ScheduleUpdate, ScheduleQuery, Priority
+from ...models.schedule import ScheduleItem, ScheduleCreate, ScheduleUpdate, Priority
 from ...dependencies import get_scheduler
 
 router = APIRouter()

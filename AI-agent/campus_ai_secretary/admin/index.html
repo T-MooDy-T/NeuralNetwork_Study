@@ -5,906 +5,642 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>校园 AI 秘书 - 管理后台</title>
     
-    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css?v=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.13.7/dist/index.css">
     <link rel="stylesheet" href="css/style.css">
     
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js?v=1.0"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/element-plus"></script>
-    <script src="https://unpkg.com/@element-plus/icons-vue/dist/index.iife.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-plus@2.13.7/dist/index.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2/dist/index.iife.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <div v-if="!isLoggedIn" class="login-container">
+        <Login v-if="!isLoggedIn" @login-success="handleLoginSuccess"></Login>
+        
+        <div v-else class="admin-layout">
+            <Sidebar :active-menu="activeMenu" @menu-change="handleMenuChange"></Sidebar>
+            <div class="main-content">
+                <Header :title="pageTitle" :current-user="currentUser" @logout="handleLogout"></Header>
+                <div class="content-area">
+                    <Dashboard v-if="activeMenu === 'dashboard'"></Dashboard>
+                    <user-management v-else-if="activeMenu === 'users'"></user-management>
+                    <schedule-management v-else-if="activeMenu === 'schedules'"></schedule-management>
+                    <knowledge-base v-else-if="activeMenu === 'knowledge'"></knowledge-base>
+                    <collected-info v-else-if="activeMenu === 'collected'"></collected-info>
+                    <Reminders v-else-if="activeMenu === 'reminders'"></Reminders>
+                    <Internships v-else-if="activeMenu === 'internships'"></Internships>
+                    <push-message v-else-if="activeMenu === 'push'"></push-message>
+                    <smart-push v-else-if="activeMenu === 'smartpush'"></smart-push>
+                    <student-profile v-else-if="activeMenu === 'profile'"></student-profile>
+                    <job-match v-else-if="activeMenu === 'jobmatch'"></job-match>
+                    <Settings v-else-if="activeMenu === 'settings'"></Settings>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-template" id="login-template">
+        <div class="login-container">
             <div class="login-box">
                 <h2 class="login-title">🎓 校园 AI 秘书</h2>
                 <h3 style="text-align: center; margin-bottom: 20px; color: #666;">管理后台</h3>
-                
-                <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
+                <el-form :model="loginForm" ref="loginFormRef">
                     <el-form-item prop="username">
-                        <el-input 
-                            v-model="loginForm.username" 
-                            placeholder="用户名"
-                            prefix-icon="User"
-                            size="large"
-                        ></el-input>
+                        <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="User" size="large"></el-input>
                     </el-form-item>
                     <el-form-item prop="password">
-                        <el-input 
-                            v-model="loginForm.password" 
-                            type="password"
-                            placeholder="密码"
-                            prefix-icon="Lock"
-                            size="large"
-                            @keyup.enter="handleLogin"
-                        ></el-input>
+                        <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="Lock" size="large" @keyup.enter="handleLogin"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button 
-                            type="primary" 
-                            @click="handleLogin" 
-                            size="large"
-                            :loading="loading"
-                            style="width: 100%;"
-                        >登录</el-button>
+                        <el-button type="primary" @click="handleLogin" size="large" :loading="loading" style="width: 100%;">登录</el-button>
                     </el-form-item>
                 </el-form>
+                <div style="text-align: center; color: #999; font-size: 12px; margin-top: 15px;">默认账号：admin / admin123</div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="sidebar-template">
+        <div class="sidebar">
+            <div class="sidebar-logo">🎓 校园 AI 秘书</div>
+            <el-menu :default-active="activeMenu" background-color="#001529" text-color="rgba(255,255,255,0.65)" active-text-color="#fff" class="sidebar-menu" mode="vertical">
+                <el-menu-item index="dashboard" @click="handleMenuClick('dashboard')"><el-icon><component :is="'DataAnalysis'" /></el-icon><span>仪表盘</span></el-menu-item>
                 
-                <div style="text-align: center; color: #999; font-size: 12px; margin-top: 15px;">
-                    默认账号：admin / admin123
+                <el-sub-menu index="management">
+                    <template #title><el-icon><component :is="'Folder'" /></el-icon><span>管理类</span></template>
+                    <el-menu-item index="users" @click="handleMenuClick('users')"><el-icon><component :is="'User'" /></el-icon><span>用户管理</span></el-menu-item>
+                    <el-menu-item index="schedules" @click="handleMenuClick('schedules')"><el-icon><component :is="'Calendar'" /></el-icon><span>日程管理</span></el-menu-item>
+                </el-sub-menu>
+                
+                <el-sub-menu index="information">
+                    <template #title><el-icon><component :is="'Search'" /></el-icon><span>信息获取</span></template>
+                    <el-menu-item index="knowledge" @click="handleMenuClick('knowledge')"><el-icon><component :is="'Document'" /></el-icon><span>知识库</span></el-menu-item>
+                    <el-menu-item index="collected" @click="handleMenuClick('collected')"><el-icon><component :is="'Message'" /></el-icon><span>采集信息</span></el-menu-item>
+                    <el-menu-item index="reminders" @click="handleMenuClick('reminders')"><el-icon><component :is="'Bell'" /></el-icon><span>提醒日志</span></el-menu-item>
+                    <el-menu-item index="internships" @click="handleMenuClick('internships')"><el-icon><component :is="'Briefcase'" /></el-icon><span>实习信息</span></el-menu-item>
+                </el-sub-menu>
+                
+                <el-sub-menu index="push">
+                    <template #title><el-icon><component :is="'Send'" /></el-icon><span>信息推送</span></template>
+                    <el-menu-item index="push-message" @click="handleMenuClick('push')"><span>📤</span><span>消息推送</span></el-menu-item>
+                    <el-menu-item index="smartpush" @click="handleMenuClick('smartpush')"><el-icon><component :is="'Cpu'" /></el-icon><span>智能推送</span></el-menu-item>
+                </el-sub-menu>
+                
+                <el-sub-menu index="ai">
+                    <template #title><el-icon><component :is="'Brain'" /></el-icon><span>AI分析</span></template>
+                    <el-menu-item index="profile" @click="handleMenuClick('profile')"><el-icon><component :is="'UserFilled'" /></el-icon><span>学生画像</span></el-menu-item>
+                    <el-menu-item index="jobmatch" @click="handleMenuClick('jobmatch')"><el-icon><component :is="'Target'" /></el-icon><span>岗位匹配</span></el-menu-item>
+                </el-sub-menu>
+                
+                <el-menu-item index="settings" @click="handleMenuClick('settings')"><el-icon><component :is="'Setting'" /></el-icon><span>系统设置</span></el-menu-item>
+            </el-menu>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="header-template">
+        <div class="header">
+            <h3>{{ title }}</h3>
+            <div>
+                <el-dropdown @command="handleCommand">
+                    <span style="cursor: pointer;"><el-icon><component :is="'UserFilled'" /></el-icon>{{ currentUser.username }}<el-icon><component :is="'ArrowDown'" /></el-icon></span>
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="dashboard-template">
+        <div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-label">总用户数</div><div class="stat-value">{{ store.stats.users?.total || 0 }}</div><div style="color: #67C23A; font-size: 12px;">活跃：{{ store.stats.users?.active || 0 }}</div></div>
+                <div class="stat-card"><div class="stat-label">总日程数</div><div class="stat-value">{{ store.stats.schedules?.total || 0 }}</div><div style="color: #666; font-size: 12px;">今日：{{ store.stats.schedules?.today || 0 }}</div></div>
+                <div class="stat-card"><div class="stat-label">提醒总数</div><div class="stat-value">{{ store.stats.reminders?.total || 0 }}</div><div style="color: #666; font-size: 12px;">今日：{{ store.stats.reminders?.today || 0 }}</div></div>
+                <div class="stat-card"><div class="stat-label">知识库条目</div><div class="stat-value">{{ store.stats.knowledge?.total || 0 }}</div><div style="color: #666; font-size: 12px;">今日新增：{{ store.stats.knowledge?.today || 0 }}</div></div>
+            </div>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <h4 style="margin-bottom: 15px;">日程统计</h4>
+                    <div id="scheduleChart" style="height: 250px;"></div>
+                </div>
+                <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <h4 style="margin-bottom: 15px;">提醒统计</h4>
+                    <div id="reminderChart" style="height: 250px;"></div>
                 </div>
             </div>
         </div>
-        
-        <div v-else class="admin-layout">
-            <div class="sidebar">
-                <div class="sidebar-logo">🎓 校园 AI 秘书</div>
-                <el-menu 
-                    :default-active="activeMenu"
-                    background-color="#001529"
-                    text-color="rgba(255,255,255,0.65)"
-                    active-text-color="#fff"
-                    class="sidebar-menu"
-                >
-                    <el-menu-item index="dashboard" @click="activeMenu = 'dashboard'">
-                        <el-icon><component :is="'DataAnalysis'" /></el-icon>
-                        <span>仪表盘</span>
-                    </el-menu-item>
-                    <el-menu-item index="users" @click="activeMenu = 'users'">
-                        <el-icon><component :is="'User'" /></el-icon>
-                        <span>用户管理</span>
-                    </el-menu-item>
-                    <el-menu-item index="schedules" @click="activeMenu = 'schedules'">
-                        <el-icon><component :is="'Calendar'" /></el-icon>
-                        <span>日程管理</span>
-                    </el-menu-item>
-                    <el-menu-item index="knowledge" @click="activeMenu = 'knowledge'">
-                        <el-icon><component :is="'Document'" /></el-icon>
-                        <span>知识库</span>
-                    </el-menu-item>
-                    <el-menu-item index="collected" @click="activeMenu = 'collected'">
-                        <el-icon><component :is="'Message'" /></el-icon>
-                        <span>采集信息</span>
-                    </el-menu-item>
-                    <el-menu-item index="reminders" @click="activeMenu = 'reminders'">
-                        <el-icon><component :is="'Bell'" /></el-icon>
-                        <span>提醒日志</span>
-                    </el-menu-item>
-                    <el-menu-item index="push" @click="activeMenu = 'push'">
-                        <span>📤</span>
-                        <span>消息推送</span>
-                    </el-menu-item>
-                    <el-menu-item index="smartpush" @click="activeMenu = 'smartpush'">
-                        <el-icon><component :is="'Cpu'" /></el-icon>
-                        <span>智能推送</span>
-                    </el-menu-item>
-                    <el-menu-item index="profile" @click="activeMenu = 'profile'">
-                        <el-icon><component :is="'UserFilled'" /></el-icon>
-                        <span>学生画像</span>
-                    </el-menu-item>
-                    <el-menu-item index="settings" @click="activeMenu = 'settings'">
-                        <el-icon><component :is="'Setting'" /></el-icon>
-                        <span>系统设置</span>
-                    </el-menu-item>
-                </el-menu>
+    </script>
+
+    <script type="text/x-template" id="user-management-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索用户名或昵称" style="width: 300px;" @input="searchUsers"></el-input></div>
+                <el-button type="primary" @click="showAddUser = true">添加用户</el-button>
             </div>
-            
-            <div class="main-content">
-                <div class="header">
-                    <h3>{{ pageTitle }}</h3>
-                    <div>
-                        <el-dropdown @command="handleCommand">
-                            <span style="cursor: pointer;">
-                                <el-icon><component :is="'UserFilled'" /></el-icon>
-                                {{ currentUser.username }}
-                                <el-icon><component :is="'ArrowDown'" /></el-icon>
-                            </span>
-                            <template #dropdown>
-                                <el-dropdown-menu>
-                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </template>
-                        </el-dropdown>
-                    </div>
+            <el-table :data="store.users" border style="width: 100%;" :loading="store.loading">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="username" label="用户名"></el-table-column>
+                <el-table-column prop="nickname" label="昵称"></el-table-column>
+                <el-table-column prop="email" label="邮箱"></el-table-column>
+                <el-table-column prop="role" label="角色">
+                    <template #default="scope"><el-tag :type="scope.row.role === 'admin' ? 'danger' : 'success'">{{ scope.row.role === 'admin' ? '管理员' : '普通用户' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="is_active" label="状态">
+                    <template #default="scope"><el-tag :type="scope.row.is_active ? 'success' : 'warning'">{{ scope.row.is_active ? '活跃' : '禁用' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="created_at" label="创建时间" width="180"></el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template #default="scope">
+                        <el-button size="small" @click="editUser(scope.row)">编辑</el-button>
+                        <el-button size="small" type="danger" @click="deleteUser(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-dialog title="添加用户" v-model="showAddUser">
+                <el-form :model="userForm" ref="userFormRef">
+                    <el-form-item prop="username"><el-input v-model="userForm.username" placeholder="用户名"></el-input></el-form-item>
+                    <el-form-item prop="nickname"><el-input v-model="userForm.nickname" placeholder="昵称"></el-input></el-form-item>
+                    <el-form-item prop="email"><el-input v-model="userForm.email" placeholder="邮箱"></el-input></el-form-item>
+                    <el-form-item prop="password"><el-input v-model="userForm.password" type="password" placeholder="密码"></el-input></el-form-item>
+                    <el-form-item prop="role">
+                        <el-select v-model="userForm.role" placeholder="角色">
+                            <el-option label="普通用户" value="user"></el-option>
+                            <el-option label="管理员" value="admin"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="showAddUser = false">取消</el-button>
+                    <el-button type="primary" @click="submitUser">确定</el-button>
+                </template>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="schedule-management-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索日程名称" style="width: 300px;" @input="searchSchedules"></el-input></div>
+                <el-button type="primary" @click="showAddSchedule = true">添加日程</el-button>
+            </div>
+            <el-table :data="store.schedules" border style="width: 100%;" :loading="store.loading">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="event_name" label="日程名称"></el-table-column>
+                <el-table-column prop="location" label="地点"></el-table-column>
+                <el-table-column prop="start_time" label="开始时间" width="180"></el-table-column>
+                <el-table-column prop="priority" label="优先级">
+                    <template #default="scope"><el-tag :type="{high: 'danger', medium: 'warning', low: 'success'}[scope.row.priority]">{{ {high: '高', medium: '中', low: '低'}[scope.row.priority] }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="status" label="状态">
+                    <template #default="scope"><el-tag :type="scope.row.status === 'completed' ? 'success' : 'warning'">{{ scope.row.status === 'completed' ? '已完成' : '进行中' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="description" label="描述"></el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template #default="scope">
+                        <el-button size="small" @click="editSchedule(scope.row)">编辑</el-button>
+                        <el-button size="small" type="danger" @click="deleteSchedule(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-dialog title="添加日程" v-model="showAddSchedule">
+                <el-form :model="scheduleForm" ref="scheduleFormRef">
+                    <el-form-item prop="event_name"><el-input v-model="scheduleForm.event_name" placeholder="日程名称"></el-input></el-form-item>
+                    <el-form-item prop="location"><el-input v-model="scheduleForm.location" placeholder="地点"></el-input></el-form-item>
+                    <el-form-item prop="start_time"><el-date-picker v-model="scheduleForm.start_time" type="datetime" placeholder="开始时间"></el-date-picker></el-form-item>
+                    <el-form-item prop="priority">
+                        <el-select v-model="scheduleForm.priority" placeholder="优先级">
+                            <el-option label="高" value="high"></el-option>
+                            <el-option label="中" value="medium"></el-option>
+                            <el-option label="低" value="low"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="description"><textarea v-model="scheduleForm.description" placeholder="描述" style="width: 100%; min-height: 80px; padding: 8px; border: 1px solid #dcdfe6; border-radius: 4px;"></textarea></el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="showAddSchedule = false">取消</el-button>
+                    <el-button type="primary" @click="submitSchedule">确定</el-button>
+                </template>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="knowledge-base-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索知识库内容" style="width: 300px;" @input="searchKnowledge"></el-input></div>
+                <el-button type="primary" @click="showAddKnowledge = true">添加知识</el-button>
+            </div>
+            <el-table :data="store.knowledgeList" border style="width: 100%;" :loading="store.loading.value">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="title" label="标题"></el-table-column>
+                <el-table-column prop="category" label="分类"><template #default="scope"><el-tag type="info">{{ scope.row.category }}</el-tag></template></el-table-column>
+                <el-table-column prop="source_type" label="来源" width="100"></el-table-column>
+                <el-table-column prop="created_at" label="创建时间" width="180"></el-table-column>
+                <el-table-column label="操作" width="150">
+                    <template #default="scope">
+                        <el-button size="small" @click="viewKnowledge(scope.row)">查看</el-button>
+                        <el-button size="small" type="danger" @click="deleteKnowledge(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-dialog title="添加知识" v-model="showAddKnowledge">
+                <el-form :model="knowledgeForm" ref="knowledgeFormRef">
+                    <el-form-item prop="title"><el-input v-model="knowledgeForm.title" placeholder="标题"></el-input></el-form-item>
+                    <el-form-item prop="content"><textarea v-model="knowledgeForm.content" placeholder="内容" rows="5" style="width: 100%; padding: 8px; border: 1px solid #dcdfe6; border-radius: 4px;"></textarea></el-form-item>
+                    <el-form-item prop="category">
+                        <el-select v-model="knowledgeForm.category" placeholder="分类">
+                            <el-option label="学习资料" value="学习资料"></el-option>
+                            <el-option label="通知公告" value="通知公告"></el-option>
+                            <el-option label="常见问题" value="常见问题"></el-option>
+                            <el-option label="AI分析" value="AI分析"></el-option>
+                            <el-option label="其他" value="其他"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="showAddKnowledge = false">取消</el-button>
+                    <el-button type="primary" @click="submitKnowledge">确定</el-button>
+                </template>
+            </el-dialog>
+            <el-dialog title="知识详情" v-model="showViewKnowledge">
+                <h4>{{ viewItem.title }}</h4>
+                <div style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 4px;">{{ viewItem.content }}</div>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="collected-info-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索采集信息" style="width: 300px;" @input="searchCollected"></el-input></div>
+                <el-button type="primary" @click="collectInfo">采集信息</el-button>
+            </div>
+            <el-table :data="store.collectedList" border style="width: 100%;" :loading="store.loading.value">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="source" label="来源"></el-table-column>
+                <el-table-column prop="content" label="内容"></el-table-column>
+                <el-table-column prop="source_type" label="类型" width="100"><template #default="scope"><el-tag type="info">{{ scope.row.source_type }}</el-tag></template></el-table-column>
+                <el-table-column prop="created_at" label="采集时间" width="180"></el-table-column>
+                <el-table-column label="操作" width="150">
+                    <template #default="scope"><el-button size="small" type="danger" @click="deleteCollected(scope.row.id)">删除</el-button></template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="reminders-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索提醒内容" style="width: 300px;" @input="searchReminders"></el-input></div>
+            </div>
+            <el-table :data="store.reminders" border style="width: 100%;" :loading="store.loading.value">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="user_id" label="用户ID" width="100"></el-table-column>
+                <el-table-column prop="username" label="用户名" width="120"></el-table-column>
+                <el-table-column prop="event_name" label="提醒内容"></el-table-column>
+                <el-table-column prop="remind_time" label="提醒时间" width="180"><template #default="scope">{{ store.formatDate(scope.row.remind_time) }}</template></el-table-column>
+                <el-table-column prop="status" label="状态" width="100">
+                    <template #default="scope"><el-tag :type="scope.row.status === 'sent' ? 'success' : 'warning'">{{ scope.row.status === 'sent' ? '已发送' : '待发送' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="sent_at" label="发送时间" width="180"><template #default="scope">{{ store.formatDate(scope.row.sent_at) }}</template></el-table-column>
+            </el-table>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="push-message-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div><el-input v-model="searchQuery" placeholder="搜索推送内容" style="width: 300px;" @input="searchPush"></el-input></div>
+                <el-button type="primary" @click="showSendPush = true">发送推送</el-button>
+            </div>
+            <el-table :data="store.pushList" border style="width: 100%;" :loading="store.loading">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="title" label="标题"></el-table-column>
+                <el-table-column prop="content" label="内容"></el-table-column>
+                <el-table-column prop="push_type" label="推送类型" width="120"><template #default="scope"><el-tag type="info">{{ scope.row.push_type }}</el-tag></template></el-table-column>
+                <el-table-column prop="status" label="状态">
+                    <template #default="scope"><el-tag :type="scope.row.status === 'sent' ? 'success' : 'warning'">{{ scope.row.status === 'sent' ? '已发送' : '待发送' }}</el-tag></template>
+                </el-table-column>
+                <el-table-column prop="created_at" label="创建时间" width="180"></el-table-column>
+            </el-table>
+            <el-dialog title="发送推送" v-model="showSendPush">
+                <el-form :model="pushForm" ref="pushFormRef">
+                    <el-form-item prop="title"><el-input v-model="pushForm.title" placeholder="标题"></el-input></el-form-item>
+                    <el-form-item prop="content"><textarea v-model="pushForm.content" placeholder="内容" rows="5" style="width: 100%; padding: 8px; border: 1px solid #dcdfe6; border-radius: 4px;"></textarea></el-form-item>
+                    <el-form-item prop="push_type">
+                        <el-select v-model="pushForm.push_type" placeholder="推送类型">
+                            <el-option label="系统通知" value="system"></el-option>
+                            <el-option label="日程提醒" value="schedule"></el-option>
+                            <el-option label="消息通知" value="message"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <template #footer>
+                    <el-button @click="showSendPush = false">取消</el-button>
+                    <el-button type="primary" @click="sendPush">发送</el-button>
+                </template>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="smart-push-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <span style="margin-right: 20px;">服务状态：</span>
+                    <el-tag :type="store.serviceStatus === 'running' ? 'success' : 'warning'">{{ store.serviceStatus === 'running' ? '运行中' : '已停止' }}</el-tag>
+                    <span style="margin-left: 20px; margin-right: 10px;">AI增强：</span>
+                    <el-switch v-model="store.useAIEnhancement" active-text="已启用" inactive-text="已禁用" @change="toggleAIEnhancement"></el-switch>
                 </div>
-                
-                <div class="content-area">
-                    <div v-if="activeMenu === 'dashboard'">
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-label">总用户数</div>
-                                <div class="stat-value">{{ dashboardStore.stats.users?.total || 0 }}</div>
-                                <div style="color: #67C23A; font-size: 12px;">活跃：{{ dashboardStore.stats.users?.active || 0 }}</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">总日程数</div>
-                                <div class="stat-value">{{ dashboardStore.stats.schedules?.total || 0 }}</div>
-                                <div style="color: #666; font-size: 12px;">今日：{{ dashboardStore.stats.schedules?.today || 0 }}</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">提醒总数</div>
-                                <div class="stat-value">{{ dashboardStore.stats.reminders?.total || 0 }}</div>
-                                <div style="color: #666; font-size: 12px;">今日：{{ dashboardStore.stats.reminders?.today || 0 }}</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-label">知识库文档</div>
-                                <div class="stat-value">{{ dashboardStore.stats.knowledge_base?.active || 0 }}</div>
-                                <div style="color: #666; font-size: 12px;">总计：{{ dashboardStore.stats.knowledge_base?.total || 0 }}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="content-card">
-                            <h4>用户增长趋势</h4>
-                            <div id="userChart" class="chart-container"></div>
-                        </div>
-                        
-                        <div class="content-card">
-                            <h4>日程统计</h4>
-                            <div id="scheduleChart" class="chart-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'users'">
-                        <div class="content-card">
-                            <div class="table-toolbar">
-                                <div>
-                                    <el-input 
-                                        v-model="usersStore.filters.keyword" 
-                                        placeholder="搜索用户名/邮箱"
-                                        style="width: 250px;"
-                                        @input="usersStore.loadUsers"
-                                    ></el-input>
-                                </div>
-                                <div>
-                                    <el-button type="primary" @click="usersStore.loadUsers">刷新</el-button>
-                                </div>
-                            </div>
-                            
-                            <el-table :data="usersStore.users" stripe v-loading="usersStore.loading.value">
-                                <el-table-column prop="id" label="ID" width="80"></el-table-column>
-                                <el-table-column prop="username" label="用户名"></el-table-column>
-                                <el-table-column prop="email" label="邮箱"></el-table-column>
-                                <el-table-column prop="nickname" label="昵称"></el-table-column>
-                                <el-table-column prop="role" label="角色">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.role === 'admin' ? 'danger' : 'primary'">
-                                            {{ row.role === 'admin' ? '管理员' : '普通用户' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="is_active" label="状态">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.is_active ? 'success' : 'info'">
-                                            {{ row.is_active ? '启用' : '禁用' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="schedule_count" label="日程数"></el-table-column>
-                                <el-table-column prop="last_login" label="最后登录">
-                                    <template #default="{ row }">
-                                        {{ usersStore.formatDate(row.last_login) }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" width="150">
-                                    <template #default="{ row }">
-                                        <el-button size="small" @click="usersStore.toggleUserStatus(row)">
-                                            {{ row.is_active ? '禁用' : '启用' }}
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div class="pagination-container">
-                                <el-pagination
-                                    v-model:current-page="usersStore.pagination.page"
-                                    v-model:page-size="usersStore.pagination.page_size"
-                                    :total="usersStore.pagination.total"
-                                    @current-change="usersStore.loadUsers"
-                                    layout="total, prev, pager, next"
-                                ></el-pagination>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'schedules'">
-                        <div class="content-card">
-                            <div class="table-toolbar">
-                                <div>
-                                    <el-select v-model="schedulesStore.filters.status" placeholder="状态" clearable @change="schedulesStore.loadSchedules">
-                                        <el-option label="待处理" value="pending"></el-option>
-                                        <el-option label="已完成" value="completed"></el-option>
-                                        <el-option label="已取消" value="cancelled"></el-option>
-                                    </el-select>
-                                    <el-select v-model="schedulesStore.filters.priority" placeholder="优先级" clearable @change="schedulesStore.loadSchedules" style="margin-left: 10px;">
-                                        <el-option label="高" value="high"></el-option>
-                                        <el-option label="中" value="medium"></el-option>
-                                        <el-option label="低" value="low"></el-option>
-                                    </el-select>
-                                </div>
-                                <div>
-                                    <el-button type="primary" @click="schedulesStore.loadSchedules">刷新</el-button>
-                                </div>
-                            </div>
-                            
-                            <el-table :data="schedulesStore.schedules" stripe v-loading="schedulesStore.loading.value">
-                                <el-table-column prop="id" label="ID" width="80"></el-table-column>
-                                <el-table-column prop="username" label="用户"></el-table-column>
-                                <el-table-column prop="event_name" label="事件名称"></el-table-column>
-                                <el-table-column prop="start_time" label="开始时间">
-                                    <template #default="{ row }">
-                                        {{ schedulesStore.formatDate(row.start_time) }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="location" label="地点"></el-table-column>
-                                <el-table-column prop="priority" label="优先级">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
-                                            {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="status" label="状态">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.status === 'completed' ? 'success' : row.status === 'pending' ? 'warning' : 'info'">
-                                            {{ row.status === 'completed' ? '已完成' : row.status === 'pending' ? '待处理' : '已取消' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" width="100">
-                                    <template #default="{ row }">
-                                        <el-button size="small" type="danger" @click="schedulesStore.deleteSchedule(row.id)">删除</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div class="pagination-container">
-                                <el-pagination
-                                    v-model:current-page="schedulesStore.pagination.page"
-                                    v-model:page-size="schedulesStore.pagination.page_size"
-                                    :total="schedulesStore.pagination.total"
-                                    @current-change="schedulesStore.loadSchedules"
-                                    layout="total, prev, pager, next"
-                                ></el-pagination>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'knowledge'">
-                        <div class="content-card">
-                            <div class="table-toolbar">
-                                <div>
-                                    <el-button type="primary" @click="knowledgeStore.showAddDialog.value = true">
-                                        <el-icon><component :is="'Plus'" /></el-icon> 添加文档
-                                    </el-button>
-                                </div>
-                                <div>
-                                    <el-select v-model="knowledgeStore.filters.is_active" placeholder="状态" clearable @change="knowledgeStore.loadKnowledge">
-                                        <el-option label="启用" :value="true"></el-option>
-                                        <el-option label="禁用" :value="false"></el-option>
-                                    </el-select>
-                                </div>
-                            </div>
-                            
-                            <el-table :data="knowledgeStore.knowledge" stripe v-loading="knowledgeStore.loading.value">
-                                <el-table-column prop="id" label="ID" width="80"></el-table-column>
-                                <el-table-column prop="title" label="标题"></el-table-column>
-                                <el-table-column prop="source_type" label="来源类型"></el-table-column>
-                                <el-table-column prop="category" label="分类"></el-table-column>
-                                <el-table-column prop="view_count" label="查看次数"></el-table-column>
-                                <el-table-column prop="is_active" label="状态">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.is_active ? 'success' : 'info'">
-                                            {{ row.is_active ? '启用' : '禁用' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="created_at" label="创建时间">
-                                    <template #default="{ row }">
-                                        {{ knowledgeStore.formatDate(row.created_at) }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" width="150">
-                                    <template #default="{ row }">
-                                        <el-button size="small" @click="knowledgeStore.viewKnowledge(row)">查看</el-button>
-                                        <el-button size="small" type="danger" @click="knowledgeStore.deleteKnowledge(row.id)">删除</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div class="pagination-container">
-                                <el-pagination
-                                    v-model:current-page="knowledgeStore.pagination.page"
-                                    v-model:page-size="knowledgeStore.pagination.page_size"
-                                    :total="knowledgeStore.pagination.total"
-                                    @current-change="knowledgeStore.loadKnowledge"
-                                    layout="total, prev, pager, next"
-                                ></el-pagination>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'reminders'">
-                        <div class="content-card">
-                            <el-table :data="remindersStore.reminders" stripe v-loading="remindersStore.loading.value">
-                                <el-table-column prop="id" label="ID" width="80"></el-table-column>
-                                <el-table-column prop="username" label="用户"></el-table-column>
-                                <el-table-column prop="event_name" label="事件名称"></el-table-column>
-                                <el-table-column prop="remind_time" label="提醒时间">
-                                    <template #default="{ row }">
-                                        {{ remindersStore.formatDate(row.remind_time) }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="offset" label="提前"></el-table-column>
-                                <el-table-column prop="status" label="状态">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.status === 'sent' ? 'success' : 'danger'">
-                                            {{ row.status === 'sent' ? '已发送' : '失败' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="sent_at" label="发送时间">
-                                    <template #default="{ row }">
-                                        {{ remindersStore.formatDate(row.sent_at) }}
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div class="pagination-container">
-                                <el-pagination
-                                    v-model:current-page="remindersStore.pagination.page"
-                                    v-model:page-size="remindersStore.pagination.page_size"
-                                    :total="remindersStore.pagination.total"
-                                    @current-change="remindersStore.loadReminders"
-                                    layout="total, prev, pager, next"
-                                ></el-pagination>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'push'">
-                        <div class="content-card">
-                            <h4>📤 主动发送消息</h4>
-                            
-                            <el-form :model="pushForm" label-width="100px" style="max-width: 700px;">
-                                <el-form-item label="接收用户">
-                                    <el-select v-model="pushForm.userId" placeholder="请选择接收用户" style="width: 200px;">
-                                        <el-option label="全部用户" value="all"></el-option>
-                                        <el-option label="测试用户1" value="test_user1"></el-option>
-                                        <el-option label="测试用户2" value="test_user2"></el-option>
-                                        <el-option label="张三" value="student_zhang"></el-option>
-                                        <el-option label="李四" value="student_li"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                                
-                                <el-form-item label="消息类型">
-                                    <el-select v-model="pushForm.messageType" placeholder="请选择消息类型" style="width: 200px;" @change="onMessageTypeChange">
-                                        <el-option label="普通消息" value="normal"></el-option>
-                                        <el-option label="提醒通知" value="reminder"></el-option>
-                                        <el-option label="系统公告" value="notice"></el-option>
-                                        <el-option label="测试消息" value="test"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                                
-                                <el-form-item label="消息模板">
-                                    <el-select v-model="pushForm.template" placeholder="选择模板（可选）" style="width: 200px;" @change="onTemplateChange">
-                                        <el-option label="无模板" value="none"></el-option>
-                                        <el-option label="考试提醒" value="exam"></el-option>
-                                        <el-option label="日程提醒" value="schedule"></el-option>
-                                        <el-option label="系统通知" value="system"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                                
-                                <el-form-item label="消息内容">
-                                    <el-input 
-                                        type="textarea"
-                                        v-model="pushForm.content" 
-                                        :rows="6" 
-                                        placeholder="请输入消息内容"
-                                        style="width: 100%;"
-                                    ></el-input>
-                                </el-form-item>
-                                
-                                <el-form-item>
-                                    <el-button type="primary" @click="sendManualMessage" :loading="pushForm.sending">
-                                        📤 发送消息
-                                    </el-button>
-                                    <el-button type="success" @click="sendTestMessage">
-                                        🔔 发送测试消息
-                                    </el-button>
-                                    <el-button type="warning" @click="previewMessage">
-                                        👁️ 预览消息
-                                    </el-button>
-                                </el-form-item>
-                            </el-form>
-                            
-                            <div style="margin-top: 20px; padding: 15px; background: #f5f7fa; border-radius: 8px;">
-                                <h5>📊 发送状态</h5>
-                                <div style="display: flex; gap: 20px; margin-top: 10px;">
-                                    <div>
-                                        <span style="color: #67C23A; font-size: 20px;">✓</span>
-                                        <span style="margin-left: 5px;">成功: {{ pushForm.successCount }}</span>
-                                    </div>
-                                    <div>
-                                        <span style="color: #F56C6C; font-size: 20px;">✗</span>
-                                        <span style="margin-left: 5px;">失败: {{ pushForm.failCount }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 20px;">
-                                <h5>📝 发送历史</h5>
-                                <el-table :data="pushForm.sendHistory" stripe style="width: 100%;">
-                                    <el-table-column prop="time" label="发送时间" width="180"></el-table-column>
-                                    <el-table-column prop="user" label="接收用户" width="120"></el-table-column>
-                                    <el-table-column prop="type" label="消息类型" width="120"></el-table-column>
-                                    <el-table-column prop="content" label="内容" width="300"></el-table-column>
-                                    <el-table-column prop="status" label="状态" width="80">
-                                        <template #default="{ row }">
-                                            <el-tag :type="row.status === 'success' ? 'success' : 'danger'">
-                                                {{ row.status === 'success' ? '成功' : '失败' }}
-                                            </el-tag>
-                                        </template>
-                                    </el-table-column>
-                                </el-table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'smartpush'">
-                        <div class="content-card">
-                            <h4>🤖 智能推送服务</h4>
-                            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                                <el-button 
-                                    :type="smartPushStore.isRunning.value ? 'danger' : 'primary'" 
-                                    @click="smartPushStore.isRunning.value ? smartPushStore.stopSmartPush() : smartPushStore.startSmartPush()"
-                                >
-                                    {{ smartPushStore.isRunning.value ? '⏹️ 停止服务' : '▶️ 启动服务' }}
-                                </el-button>
-                                <el-button type="success" @click="smartPushStore.checkAndPush()">
-                                    🔍 立即检查推送
-                                </el-button>
-                                <el-button type="info" @click="smartPushStore.getPushHistory()">
-                                    📋 刷新推送历史
-                                </el-button>
-                                <div style="margin-left: auto; display: flex; align-items: center; gap: 10px;">
-                                    <span style="color: #666;">🤖 AI内容增强</span>
-                                    <el-switch 
-                                        v-model="smartPushStore.useAIEnhancement.value" 
-                                        :active-text="'开启'" 
-                                        :inactive-text="'关闭'"
-                                        active-color="#67C23A"
-                                        inactive-color="#909399"
-                                    ></el-switch>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-bottom: 20px; padding: 15px; background: #f5f7fa; border-radius: 8px;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                    <span><strong>服务状态：</strong><el-tag :type="smartPushStore.isRunning.value ? 'success' : 'info'">{{ smartPushStore.isRunning.value ? '运行中' : '已停止' }}</el-tag></span>
-                                    <span><strong>AI增强：</strong><el-tag :type="smartPushStore.useAIEnhancement.value ? 'success' : 'warning'">{{ smartPushStore.useAIEnhancement.value ? '已启用' : '已关闭' }}</el-tag></span>
-                                    <span><strong>上次检查：</strong>{{ smartPushStore.lastCheckTime.value || '从未检查' }}</span>
-                                </div>
-                                <div style="display: flex; gap: 20px;">
-                                    <div>
-                                        <strong>待推送消息数：</strong><el-tag type="warning">{{ smartPushStore.pendingMessages.length }}</el-tag>
-                                    </div>
-                                    <div>
-                                        <strong>延迟队列：</strong><el-tag type="info">{{ smartPushStore.delayQueue?.length || 0 }}</el-tag>
-                                    </div>
-                                    <div>
-                                        <strong>已推送：</strong><el-tag type="success">{{ smartPushStore.pushedMessageIds?.size || 0 }}</el-tag>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h4>📊 推送历史记录</h4>
-                            <el-table :data="smartPushStore.pushHistory" stripe style="width: 100%;">
-                                <el-table-column prop="pushTime" label="推送时间" width="180"></el-table-column>
-                                <el-table-column label="AI增强" width="80">
-                                    <template #default="{ row }">
-                                        <el-tag v-if="row.enhanced" type="success">🤖</el-tag>
-                                        <span v-else>-</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="type" label="类型" width="100">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.type === 'schedule' ? 'primary' : row.type === 'knowledge' ? 'success' : row.type === 'collected' ? 'warning' : 'danger'">
-                                            {{ row.type === 'schedule' ? '日程' : row.type === 'knowledge' ? '知识库' : row.type === 'collected' ? '采集' : '提醒' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="title" label="标题"></el-table-column>
-                                <el-table-column prop="content" label="内容" width="400"></el-table-column>
-                                <el-table-column prop="priority" label="优先级" width="100">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'success'">
-                                            {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="username" label="用户" width="120"></el-table-column>
-                                <el-table-column prop="status" label="状态" width="80">
-                                    <template #default="{ row }">
-                                        <el-tag :type="row.status === 'success' ? 'success' : 'danger'">
-                                            {{ row.status === 'success' ? '成功' : '失败' }}
-                                        </el-tag>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div v-if="smartPushStore.pushHistory.length === 0" style="text-align: center; padding: 40px; color: #999;">
-                                <el-icon size="48" style="margin-bottom: 10px;">History</el-icon>
-                                <p>暂无推送记录</p>
-                            </div>
-                        </div>
-                        
-                        <div class="content-card">
-                            <h4>📚 智能推送说明</h4>
-                            <div style="padding: 15px;">
-                                <h5>🤖 AI内容增强</h5>
-                                <p style="color: #666; margin-bottom: 15px;">启用AI增强后，推送内容将通过AI生成更加友好、自然的文案，提升用户体验。</p>
-                                <ul style="margin: 10px 0 20px 20px;">
-                                    <li><strong>日程提醒</strong>：生成温馨的提醒文案，突出时间和地点</li>
-                                    <li><strong>知识库推荐</strong>：生成吸引人的推荐语，激发阅读兴趣</li>
-                                    <li><strong>采集信息</strong>：提取核心要点，生成简洁的推送消息</li>
-                                    <li><strong>智能优先级</strong>：AI自动分析内容重要程度</li>
-                                </ul>
-                                
-                                <h5>🔄 数据来源</h5>
-                                <ul style="margin: 10px 0 20px 20px;">
-                                    <li><strong>日程管理</strong>：即将开始的待处理日程</li>
-                                    <li><strong>知识库</strong>：浏览量较少的优质文档</li>
-                                    <li><strong>采集信息</strong>：未读的新消息</li>
-                                    <li><strong>提醒日志</strong>：未发送成功的提醒</li>
-                                </ul>
-                                
-                                <h5>⚡ 优先级规则</h5>
-                                <ul style="margin: 10px 0 20px 20px;">
-                                    <li><strong>高优先级</strong>：即将到期的提醒、紧急日程</li>
-                                    <li><strong>中优先级</strong>：普通日程、知识库推荐</li>
-                                    <li><strong>低优先级</strong>：普通采集信息</li>
-                                </ul>
-                                
-                                <h5>⏰ 推送时间</h5>
-                                <p style="color: #666;">智能推送服务每30秒检查一次，仅推送2小时内即将发生的事件。每次最多推送5条消息，避免打扰用户。</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'collected'">
-                        <div class="content-card">
-                            <div class="table-toolbar">
-                                <div>
-                                    <el-select v-model="collectedStore.filters.source_type" placeholder="来源类型" clearable @change="collectedStore.loadCollectedInfo">
-                                        <el-option label="QQ群" value="qq_group"></el-option>
-                                        <el-option label="微信群" value="wechat_chat"></el-option>
-                                        <el-option label="公众号" value="wechat_official"></el-option>
-                                    </el-select>
-                                    <el-select v-model="collectedStore.filters.priority" placeholder="优先级" clearable @change="collectedStore.loadCollectedInfo" style="margin-left: 10px;">
-                                        <el-option label="高" value="high"></el-option>
-                                        <el-option label="中" value="medium"></el-option>
-                                        <el-option label="低" value="normal"></el-option>
-                                    </el-select>
-                                    <el-select v-model="collectedStore.filters.status" placeholder="状态" clearable @change="collectedStore.loadCollectedInfo" style="margin-left: 10px;">
-                                        <el-option label="未读" value="unread"></el-option>
-                                        <el-option label="已读" value="read"></el-option>
-                                        <el-option label="已处理" value="processed"></el-option>
-                                    </el-select>
-                                </div>
-                                <div>
-                                    <el-button type="primary" @click="collectedStore.loadCollectedInfo">刷新</el-button>
-                                </div>
-                            </div>
-                            
-                            <el-table :data="collectedStore.collectedInfo" stripe v-loading="collectedStore.loading.value">
-                                <el-table-column prop="id" label="ID" width="80"></el-table-column>
-                                <el-table-column prop="source" label="来源"></el-table-column>
-                                <el-table-column prop="source_type" label="来源类型">
-                                    <template #default="{ row }">
-                                        <el-tag v-if="row && row.source_type" :type="row.source_type === 'qq_group' ? 'primary' : row.source_type === 'wechat_chat' ? 'success' : 'warning'">
-                                            {{ row.source_type === 'qq_group' ? 'QQ群' : row.source_type === 'wechat_chat' ? '微信群' : '公众号' }}
-                                        </el-tag>
-                                        <span v-else>-</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="sender" label="发送者"></el-table-column>
-                                <el-table-column prop="content" label="内容" width="300">
-                                    <template #default="{ row }">
-                                        {{ row && row.content && row.content.length > 50 ? row.content.slice(0, 50) + '...' : (row && row.content || '-') }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="priority" label="优先级">
-                                    <template #default="{ row }">
-                                        <el-tag v-if="row && row.priority" :type="row.priority === 'high' ? 'danger' : row.priority === 'medium' ? 'warning' : 'info'">
-                                            {{ row.priority === 'high' ? '高' : row.priority === 'medium' ? '中' : '低' }}
-                                        </el-tag>
-                                        <span v-else>-</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="status" label="状态">
-                                    <template #default="{ row }">
-                                        <el-tag v-if="row && row.status" :type="row.status === 'unread' ? 'warning' : row.status === 'read' ? 'info' : 'success'">
-                                            {{ row.status === 'unread' ? '未读' : row.status === 'read' ? '已读' : '已处理' }}
-                                        </el-tag>
-                                        <span v-else>-</span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="timestamp" label="时间">
-                                    <template #default="{ row }">
-                                        {{ collectedStore.formatDate(row.timestamp) }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" width="150">
-                                    <template #default="{ row }">
-                                        <el-button size="small" @click="collectedStore.viewCollectedInfo(row)">查看</el-button>
-                                        <el-button size="small" @click="collectedStore.markCollectedAsRead(row)">标记已读</el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            
-                            <div class="pagination-container">
-                                <el-pagination
-                                    v-model:current-page="collectedStore.pagination.page"
-                                    v-model:page-size="collectedStore.pagination.page_size"
-                                    :total="collectedStore.pagination.total"
-                                    @current-change="collectedStore.loadCollectedInfo"
-                                    layout="total, prev, pager, next"
-                                ></el-pagination>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'profile'">
-                        <div class="content-card">
-                            <h4>👤 学生画像</h4>
-                            
-                            <div style="display: flex; gap: 20px; margin-bottom: 20px;">
-                                <div style="flex: 1;">
-                                    <el-select 
-                                        v-model="profileStore.selectedStudentId.value" 
-                                        placeholder="请选择学生"
-                                        style="width: 100%;"
-                                        @change="onStudentSelect"
-                                    >
-                                        <el-option 
-                                            v-for="student in profileStore.students.value" 
-                                            :key="student.id" 
-                                            :label="student.nickname || student.username" 
-                                            :value="student.id"
-                                        ></el-option>
-                                    </el-select>
-                                </div>
-                                <el-button type="primary" @click="profileStore.loadStudents()">刷新列表</el-button>
-                            </div>
-                            
-                            <div v-if="!profileStore.currentProfile.value" style="text-align: center; padding: 40px; color: #999;">
-                                <el-icon size="48" style="margin-bottom: 10px;">UserFilled</el-icon>
-                                <p>请选择学生查看画像</p>
-                            </div>
-                            
-                            <div v-else>
-                                <div class="stats-grid" style="margin-bottom: 20px;">
-                                    <div class="stat-card">
-                                        <div class="stat-label">总日程数</div>
-                                        <div class="stat-value">{{ profileStore.currentProfile.value?.learning_stats?.total_schedules || 0 }}</div>
-                                        <div style="color: #67C23A; font-size: 12px;">已完成：{{ profileStore.currentProfile.value?.learning_stats?.completed_schedules || 0 }}</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-label">待处理</div>
-                                        <div class="stat-value">{{ profileStore.currentProfile.value?.learning_stats?.pending_schedules || 0 }}</div>
-                                        <div style="color: #E6A23C; font-size: 12px;">平均优先级：{{ profileStore.currentProfile.value?.learning_stats?.average_priority }}</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-label">最活跃时段</div>
-                                        <div class="stat-value">{{ profileStore.currentProfile.value?.activity_patterns?.most_active_hour }}</div>
-                                        <div style="color: #666; font-size: 12px;">{{ profileStore.currentProfile.value?.activity_patterns?.most_active_day }}</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-label">注册时间</div>
-                                        <div class="stat-value">{{ profileStore.formatDate(profileStore.currentProfile.value?.basic_info?.created_at) }}</div>
-                                    </div>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                                    <div class="content-card">
-                                        <h5>🎯 个人信息</h5>
-                                        <el-descriptions :column="1" border style="margin-top: 10px;">
-                                            <el-descriptions-item label="用户名">{{ profileStore.currentProfile.value?.basic_info?.username }}</el-descriptions-item>
-                                            <el-descriptions-item label="昵称">{{ profileStore.currentProfile.value?.basic_info?.nickname }}</el-descriptions-item>
-                                            <el-descriptions-item label="邮箱">{{ profileStore.currentProfile.value?.basic_info?.email }}</el-descriptions-item>
-                                            <el-descriptions-item label="状态">
-                                                <el-tag :type="profileStore.currentProfile.value?.basic_info?.is_active ? 'success' : 'info'">
-                                                    {{ profileStore.currentProfile.value?.basic_info?.is_active ? '活跃' : '禁用' }}
-                                                </el-tag>
-                                            </el-descriptions-item>
-                                        </el-descriptions>
-                                    </div>
-                                    
-                                    <div class="content-card">
-                                        <h5>✨ 兴趣爱好</h5>
-                                        <div style="margin-top: 10px;">
-                                            <el-tag 
-                                                v-for="interest in profileStore.currentProfile.value?.preferences?.interests" 
-                                                :key="interest" 
-                                                type="success" 
-                                                style="margin: 5px;"
-                                            >
-                                                {{ interest }}
-                                            </el-tag>
-                                        </div>
-                                        <h5 style="margin-top: 15px;">📚 偏好课程</h5>
-                                        <div style="margin-top: 10px;">
-                                            <el-tag 
-                                                v-for="course in profileStore.currentProfile.value?.preferences?.favorite_courses" 
-                                                :key="course" 
-                                                type="primary" 
-                                                style="margin: 5px;"
-                                            >
-                                                {{ course }}
-                                            </el-tag>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                                    <div class="content-card">
-                                        <h5>⏰ 活动时间分布</h5>
-                                        <div style="margin-top: 10px;">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                                <span>🌅 上午 (6-12点)</span>
-                                                <span>{{ profileStore.currentProfile.value?.activity_patterns?.morning_count }}次</span>
-                                            </div>
-                                            <div style="background: #E8F5E9; height: 20px; border-radius: 10px; width: calc(100% * {{ (profileStore.currentProfile.value?.activity_patterns?.morning_count || 0) / 10 }})"></div>
-                                            
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; margin-top: 15px;">
-                                                <span>☀️ 下午 (12-18点)</span>
-                                                <span>{{ profileStore.currentProfile.value?.activity_patterns?.afternoon_count }}次</span>
-                                            </div>
-                                            <div style="background: #FFF3E0; height: 20px; border-radius: 10px; width: calc(100% * {{ (profileStore.currentProfile.value?.activity_patterns?.afternoon_count || 0) / 10 }})"></div>
-                                            
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; margin-top: 15px;">
-                                                <span>🌙 晚上 (18-22点)</span>
-                                                <span>{{ profileStore.currentProfile.value?.activity_patterns?.evening_count }}次</span>
-                                            </div>
-                                            <div style="background: #E3F2FD; height: 20px; border-radius: 10px; width: calc(100% * {{ (profileStore.currentProfile.value?.activity_patterns?.evening_count || 0) / 10 }})"></div>
-                                            
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; margin-top: 15px;">
-                                                <span>🌃 深夜 (22-6点)</span>
-                                                <span>{{ profileStore.currentProfile.value?.activity_patterns?.night_count }}次</span>
-                                            </div>
-                                            <div style="background: #F3E5F5; height: 20px; border-radius: 10px; width: calc(100% * {{ (profileStore.currentProfile.value?.activity_patterns?.night_count || 0) / 10 }})"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="content-card">
-                                        <h5>📊 活动类型分布</h5>
-                                        <div style="margin-top: 10px;">
-                                            <div 
-                                                v-for="item in profileStore.currentProfile.value?.preferences?.activity_types" 
-                                                :key="item.type"
-                                                style="display: flex; justify-content: space-between; margin-bottom: 10px;"
-                                            >
-                                                <span>{{ item.type }}</span>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <div style="width: 100px; background: #E0E0E0; height: 15px; border-radius: 8px; overflow: hidden;">
-                                                        <div 
-                                                            style="height: 100%; border-radius: 8px;"
-                                                            :style="{ width: `${((item.count || 0) / 10) * 100}%` }"
-                                                            :class="{
-                                                                'bg-green-500': item.type === '学习',
-                                                                'bg-blue-500': item.type === '社交',
-                                                                'bg-orange-500': item.type === '体育',
-                                                                'bg-purple-500': item.type === '娱乐',
-                                                                'bg-gray-400': item.type === '其他'
-                                                            }"
-                                                        ></div>
-                                                    </div>
-                                                    <span style="width: 30px; text-align: right;">{{ item.count }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="content-card" style="margin-top: 20px;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <h5>📝 最近活动</h5>
-                                        <el-button type="success" @click="loadAIAnalysis">🤖 AI分析</el-button>
-                                    </div>
-                                    <el-table :data="profileStore.currentProfile.value?.recent_activities" stripe style="width: 100%; margin-top: 10px;">
-                                        <el-table-column prop="event_name" label="事件名称"></el-table-column>
-                                        <el-table-column prop="start_time" label="时间" width="180">
-                                            <template #default="{ row }">{{ profileStore.formatDate(row.start_time) }}</template>
-                                        </el-table-column>
-                                        <el-table-column prop="location" label="地点"></el-table-column>
-                                        <el-table-column prop="priority" label="优先级" width="100">
-                                            <template #default="{ row }">{{ profileStore.getPriorityLabel(row.priority) }}</template>
-                                        </el-table-column>
-                                        <el-table-column prop="status" label="状态" width="100">
-                                            <template #default="{ row }">{{ profileStore.getStatusLabel(row.status) }}</template>
-                                        </el-table-column>
-                                    </el-table>
-                                </div>
-                                
-                                <div v-if="profileStore.aiAnalysis.value" class="content-card" style="margin-top: 20px;">
-                                    <h5>🤖 AI分析报告</h5>
-                                    <div style="margin-top: 10px; padding: 15px; background: #f5f7fa; border-radius: 8px; white-space: pre-wrap;">
-                                        {{ profileStore.aiAnalysis.value.analysis }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div v-if="activeMenu === 'settings'">
-                        <div class="content-card">
-                            <h4>系统信息</h4>
-                            <el-descriptions :column="2" border>
-                                <el-descriptions-item label="系统版本">{{ settingsStore.systemInfo.version }}</el-descriptions-item>
-                                <el-descriptions-item label="Python 版本">{{ settingsStore.systemInfo.python_version }}</el-descriptions-item>
-                                <el-descriptions-item label="运行平台">{{ settingsStore.systemInfo.platform }}</el-descriptions-item>
-                                <el-descriptions-item label="调试模式">
-                                    <el-tag :type="settingsStore.systemInfo.debug ? 'warning' : 'success'">
-                                        {{ settingsStore.systemInfo.debug ? '开启' : '关闭' }}
-                                    </el-tag>
-                                </el-descriptions-item>
-                                <el-descriptions-item label="数据库类型">{{ settingsStore.systemInfo.database }}</el-descriptions-item>
-                            </el-descriptions>
-                        </div>
-                    </div>
+                <div>
+                    <el-button type="primary" @click="startService" v-if="store.serviceStatus !== 'running'">▶️ 启动服务</el-button>
+                    <el-button type="danger" @click="stopService" v-else>⏹️ 停止服务</el-button>
+                    <el-button @click="refreshMessages" style="margin-left: 10px;">🔄 刷新</el-button>
                 </div>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                <h4 style="margin-bottom: 15px;">推送消息列表</h4>
+                <el-table :data="store.messages" border style="width: 100%;" :loading="store.loading">
+                    <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                    <el-table-column prop="type" label="类型" width="100">
+                        <template #default="scope"><el-tag :type="{schedule: 'warning', knowledge: 'info', collected: 'primary', reminder: 'danger'}[scope.row.type]">{{ {schedule: '日程', knowledge: '知识库', collected: '采集', reminder: '提醒'}[scope.row.type] }}</el-tag></template>
+                    </el-table-column>
+                    <el-table-column prop="title" label="标题"></el-table-column>
+                    <el-table-column prop="content" label="内容"></el-table-column>
+                    <el-table-column prop="ai_enhanced" label="AI增强" width="100"><template #default="scope"><span v-if="scope.row.ai_enhanced">🤖</span></template></el-table-column>
+                    <el-table-column prop="priority" label="优先级" width="100">
+                        <template #default="scope"><el-tag :type="{high: 'danger', medium: 'warning', low: 'success'}[scope.row.priority]">{{ {high: '高', medium: '中', low: '低'}[scope.row.priority] }}</el-tag></template>
+                    </el-table-column>
+                    <el-table-column prop="created_at" label="创建时间" width="180"></el-table-column>
+                </el-table>
             </div>
         </div>
-        
-        <el-dialog v-model="knowledgeStore.showAddDialog.value" title="添加知识库文档" width="600px">
-            <el-form :model="knowledgeStore.form" label-width="80px">
-                <el-form-item label="标题">
-                    <el-input v-model="knowledgeStore.form.title"></el-input>
-                </el-form-item>
-                <el-form-item label="内容" required>
-                    <el-input v-model="knowledgeStore.form.content" type="textarea" :rows="6"></el-input>
-                </el-form-item>
-                <el-form-item label="来源类型">
-                    <el-select v-model="knowledgeStore.form.source_type">
-                        <el-option label="教务通知" value="教务通知"></el-option>
-                        <el-option label="校园设施" value="校园设施"></el-option>
-                        <el-option label="社团公告" value="社团公告"></el-option>
-                        <el-option label="考试安排" value="考试安排"></el-option>
-                        <el-option label="其他" value="其他"></el-option>
+    </script>
+
+    <script type="text/x-template" id="student-profile-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="width: 300px;">
+                    <el-select v-model="store.selectedStudentId" placeholder="请选择学生" style="width: 100%;" @change="onStudentSelect">
+                        <el-option v-for="student in store.students" :key="student.id" :label="student.nickname" :value="student.id"></el-option>
                     </el-select>
-                </el-form-item>
-                <el-form-item label="分类">
-                    <el-input v-model="knowledgeStore.form.category"></el-input>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <el-button @click="knowledgeStore.showAddDialog.value = false">取消</el-button>
-                <el-button type="primary" @click="knowledgeStore.addKnowledge">确定</el-button>
-            </template>
-        </el-dialog>
-    </div>
-    
+                </div>
+                <div>
+                    <el-button type="primary" @click="generateAIAnalysis" :disabled="!store.selectedStudentId">🤖 AI分析</el-button>
+                    <el-button @click="refreshList" style="margin-left: 10px;">🔄 刷新列表</el-button>
+                </div>
+            </div>
+            <div v-if="!store.currentProfile" style="text-align: center; padding: 40px; color: #999;">
+                <el-icon size="48" style="margin-bottom: 10px;">UserFilled</el-icon>
+                <p>请选择学生查看画像</p>
+            </div>
+            <div v-else>
+                <div class="stats-grid" style="margin-bottom: 20px;">
+                    <div class="stat-card"><div class="stat-label">总日程数</div><div class="stat-value">{{ store.currentProfile?.learning_stats?.total_schedules || 0 }}</div><div style="color: #67C23A; font-size: 12px;">已完成：{{ store.currentProfile?.learning_stats?.completed_schedules || 0 }}</div></div>
+                    <div class="stat-card"><div class="stat-label">待处理</div><div class="stat-value">{{ store.currentProfile?.learning_stats?.pending_schedules || 0 }}</div><div style="color: #E6A23C; font-size: 12px;">平均优先级：{{ store.currentProfile?.learning_stats?.average_priority }}</div></div>
+                    <div class="stat-card"><div class="stat-label">最活跃时段</div><div class="stat-value">{{ store.currentProfile?.activity_patterns?.most_active_hour }}</div><div style="color: #666; font-size: 12px;">{{ store.currentProfile?.activity_patterns?.most_active_day }}</div></div>
+                    <div class="stat-card"><div class="stat-label">注册时间</div><div class="stat-value">{{ store.formatDate(store.currentProfile?.basic_info?.created_at) }}</div></div>
+                </div>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                        <h4>个人信息</h4>
+                        <div style="margin-top: 15px;">
+                            <p><strong>用户名：</strong>{{ store.currentProfile?.basic_info?.username }}</p>
+                            <p><strong>昵称：</strong>{{ store.currentProfile?.basic_info?.nickname }}</p>
+                            <p><strong>邮箱：</strong>{{ store.currentProfile?.basic_info?.email }}</p>
+                            <p><strong>状态：</strong><el-tag :type="store.currentProfile?.basic_info?.is_active ? 'success' : 'warning'">{{ store.currentProfile?.basic_info?.is_active ? '活跃' : '禁用' }}</el-tag></p>
+                        </div>
+                    </div>
+                    <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                        <h4>兴趣爱好</h4>
+                        <div style="margin-top: 15px;">
+                            <el-tag v-for="interest in store.currentProfile?.preferences?.interests" :key="interest" type="info" style="margin-right: 10px; margin-bottom: 10px;">{{ interest }}</el-tag>
+                        </div>
+                        <h4 style="margin-top: 20px;">偏好课程</h4>
+                        <div style="margin-top: 15px;">
+                            <el-tag v-for="course in store.currentProfile?.preferences?.favorite_courses" :key="course" type="success" style="margin-right: 10px; margin-bottom: 10px;">{{ course }}</el-tag>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                    <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                        <h4>活动时间分布</h4>
+                        <div id="timeChart" style="height: 200px; margin-top: 15px;"></div>
+                    </div>
+                    <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                        <h4>活动类型分布</h4>
+                        <div id="typeChart" style="height: 200px; margin-top: 15px;"></div>
+                    </div>
+                </div>
+                <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <h4>最近活动</h4>
+                    <el-table :data="store.currentProfile?.recent_activities" border style="width: 100%; margin-top: 15px;">
+                        <el-table-column prop="event_name" label="活动名称"></el-table-column>
+                        <el-table-column prop="location" label="地点"></el-table-column>
+                        <el-table-column prop="start_time" label="时间"></el-table-column>
+                        <el-table-column prop="status" label="status"><template #default="scope"><el-tag :type="scope.row.status === 'completed' ? 'success' : 'warning'">{{ scope.row.status === 'completed' ? '已完成' : '进行中' }}</el-tag></template></el-table-column>
+                    </el-table>
+                </div>
+                <div v-if="store.aiAnalysis" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <h4>🤖 AI分析报告</h4>
+                    <div style="margin-top: 15px; padding: 15px; background: #f9fafb; border-radius: 8px; white-space: pre-wrap;">{{ store.aiAnalysis?.analysis }}</div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="internships-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="display: flex; gap: 10px;">
+                    <el-input v-model="searchQuery" placeholder="搜索实习信息" style="width: 300px;"></el-input>
+                    <el-select v-model="selectedIndustry" placeholder="选择行业">
+                        <el-option label="全部" value=""></el-option>
+                        <el-option v-for="industry in industries" :key="industry" :label="industry" :value="industry"></el-option>
+                    </el-select>
+                </div>
+                <el-button type="primary" @click="refreshInternships">
+                    <el-icon><component :is="'Refresh'" /></el-icon>
+                    获取实习信息
+                </el-button>
+            </div>
+            <el-table :data="internships" border style="width: 100%;" :loading="loading">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="title" label="实习标题"></el-table-column>
+                <el-table-column prop="company" label="公司" width="120"></el-table-column>
+                <el-table-column prop="position" label="职位" width="120"></el-table-column>
+                <el-table-column prop="location" label="地点" width="100"></el-table-column>
+                <el-table-column prop="industry" label="行业" width="100"><template #default="scope"><el-tag type="info">{{ scope.row.industry }}</el-tag></template></el-table-column>
+                <el-table-column prop="salary" label="薪资" width="100"></el-table-column>
+                <el-table-column prop="deadline" label="截止日期" width="150"></el-table-column>
+                <el-table-column prop="priority" label="优先级" width="100"><template #default="scope"><el-tag :type="scope.row.priority === 'high' ? 'danger' : scope.row.priority === 'medium' ? 'warning' : 'success'">{{ scope.row.priority === 'high' ? '高' : scope.row.priority === 'medium' ? '中' : '普通' }}</el-tag></template></el-table-column>
+                <el-table-column label="操作" width="150">
+                    <template #default="scope">
+                        <el-button size="small" @click="viewInternship(scope.row)">详情</el-button>
+                        <el-button size="small" type="danger" @click="deleteInternship(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+            </el-pagination>
+            <el-dialog title="实习详情" v-model="showDetail">
+                <div v-if="viewItem">
+                    <h4>{{ viewItem.title }}</h4>
+                    <div style="margin-top: 15px;">
+                        <p><strong>公司：</strong>{{ viewItem.company }}</p>
+                        <p><strong>职位：</strong>{{ viewItem.position }}</p>
+                        <p><strong>地点：</strong>{{ viewItem.location }}</p>
+                        <p><strong>行业：</strong>{{ viewItem.industry }}</p>
+                        <p><strong>薪资：</strong>{{ viewItem.salary }}</p>
+                        <p><strong>截止日期：</strong>{{ viewItem.deadline }}</p>
+                        <p><strong>来源：</strong>{{ viewItem.source }}</p>
+                        <p><strong>要求：</strong>{{ viewItem.requirement }}</p>
+                        <p><strong>描述：</strong>{{ viewItem.description }}</p>
+                    </div>
+                </div>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="jobmatch-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>岗位匹配度分析</h3>
+                <el-button type="primary" @click="refreshMatches">
+                    <el-icon><component :is="'Refresh'" /></el-icon>
+                    刷新匹配
+                </el-button>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <div style="width: 300px; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <h4>用户列表</h4>
+                    <el-select v-model="selectedUserId" placeholder="选择用户" style="width: 100%; margin-top: 15px;" @change="loadUserMatches">
+                        <el-option v-for="user in users" :key="user.id || user.username" :label="user.name || user.username" :value="user.id"></el-option>
+                    </el-select>
+                    <el-table :data="userMatchOverview" border style="width: 100%; margin-top: 20px;" :loading="loading">
+                        <el-table-column prop="name" label="用户名"></el-table-column>
+                        <el-table-column prop="major" label="专业" width="100"></el-table-column>
+                        <el-table-column prop="best_match_score" label="最佳匹配度" width="100">
+                            <template #default="scope">
+                                <el-progress :percentage="scope.row.best_match_score" :show-text="true" :stroke-width="15"></el-progress>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                <div style="flex: 1; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                    <div v-if="currentUser">
+                        <h4>用户信息</h4>
+                        <div style="margin-top: 15px; padding: 15px; background: #f9fafb; border-radius: 8px;">
+                            <p><strong>姓名：</strong>{{ currentUser.name }}</p>
+                            <p><strong>专业：</strong>{{ currentUser.major }}</p>
+                            <p><strong>技能：</strong>{{ Array.isArray(currentUser.skills) ? currentUser.skills.join(', ') : (currentUser.skills || '暂无') }}</p>
+                            <p><strong>兴趣：</strong>{{ Array.isArray(currentUser.interests) ? currentUser.interests.join(', ') : (currentUser.interests || '暂无') }}</p>
+                            <p><strong>期望地点：</strong>{{ currentUser.location || '暂无' }}</p>
+                        </div>
+                    </div>
+                    <h4 style="margin-top: 20px;">岗位匹配列表</h4>
+                    <el-table :data="matches" border style="width: 100%; margin-top: 15px;" :loading="loading">
+                        <el-table-column prop="title" label="实习岗位"></el-table-column>
+                        <el-table-column prop="company" label="公司" width="120"></el-table-column>
+                        <el-table-column prop="position" label="职位" width="120"></el-table-column>
+                        <el-table-column prop="location" label="地点" width="100"></el-table-column>
+                        <el-table-column prop="industry" label="行业" width="100"><template #default="scope"><el-tag type="info">{{ scope.row.industry }}</el-tag></template></el-table-column>
+                        <el-table-column prop="salary" label="薪资" width="100"></el-table-column>
+                        <el-table-column prop="match_score" label="匹配度" width="150">
+                            <template #default="scope">
+                                <el-progress :percentage="scope.row.match_score" :show-text="true" :stroke-width="15" :color="scope.row.match_score >= 80 ? '#67C23A' : scope.row.match_score >= 60 ? '#E6A23C' : '#F56C6C'"></el-progress>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="reasons" label="匹配理由" width="200">
+                            <template #default="scope">
+                                <el-tag v-for="(reason, index) in scope.row.reasons.slice(0, 3)" :key="index" size="small" type="success">{{ reason }}</el-tag>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="internships-template">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="display: flex; gap: 10px;">
+                    <el-input v-model="searchQuery" placeholder="搜索实习信息" style="width: 300px;"></el-input>
+                    <el-select v-model="selectedIndustry" placeholder="选择行业">
+                        <el-option label="全部" value=""></el-option>
+                        <el-option v-for="industry in industries" :key="industry" :label="industry" :value="industry"></el-option>
+                    </el-select>
+                </div>
+                <el-button type="primary" @click="refreshInternships">
+                    <el-icon><component :is="'Refresh'" /></el-icon>
+                    获取实习信息
+                </el-button>
+            </div>
+            <el-table :data="internships" border style="width: 100%;" :loading="loading">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="title" label="实习标题"></el-table-column>
+                <el-table-column prop="company" label="公司" width="120"></el-table-column>
+                <el-table-column prop="position" label="职位" width="120"></el-table-column>
+                <el-table-column prop="location" label="地点" width="100"></el-table-column>
+                <el-table-column prop="industry" label="行业" width="100"><template #default="scope"><el-tag type="info">{{ scope.row.industry }}</el-tag></template></el-table-column>
+                <el-table-column prop="salary" label="薪资" width="100"></el-table-column>
+                <el-table-column prop="deadline" label="截止日期" width="150"></el-table-column>
+                <el-table-column prop="priority" label="优先级" width="100"><template #default="scope"><el-tag :type="scope.row.priority === 'high' ? 'danger' : scope.row.priority === 'medium' ? 'warning' : 'success'">{{ scope.row.priority === 'high' ? '高' : scope.row.priority === 'medium' ? '中' : '普通' }}</el-tag></template></el-table-column>
+                <el-table-column label="操作" width="150">
+                    <template #default="scope">
+                        <el-button size="small" @click="viewInternship(scope.row)">详情</el-button>
+                        <el-button size="small" type="danger" @click="deleteInternship(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+            </el-pagination>
+            <el-dialog title="实习详情" v-model="showDetail">
+                <div v-if="viewItem">
+                    <h4>{{ viewItem.title }}</h4>
+                    <div style="margin-top: 15px;">
+                        <p><strong>公司：</strong>{{ viewItem.company }}</p>
+                        <p><strong>职位：</strong>{{ viewItem.position }}</p>
+                        <p><strong>地点：</strong>{{ viewItem.location }}</p>
+                        <p><strong>行业：</strong>{{ viewItem.industry }}</p>
+                        <p><strong>薪资：</strong>{{ viewItem.salary }}</p>
+                        <p><strong>截止日期：</strong>{{ viewItem.deadline }}</p>
+                        <p><strong>来源：</strong>{{ viewItem.source }}</p>
+                        <p><strong>要求：</strong>{{ viewItem.requirement }}</p>
+                        <p><strong>描述：</strong>{{ viewItem.description }}</p>
+                    </div>
+                </div>
+            </el-dialog>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="settings-template">
+        <div>
+            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+                <h4>系统设置</h4>
+                <el-form :model="store.settings" style="margin-top: 20px;">
+                    <el-form-item label="AI增强开关"><el-switch v-model="store.settings.ai_enabled" active-text="开启" inactive-text="关闭"></el-switch></el-form-item>
+                    <el-form-item label="推送间隔（分钟）"><el-input-number v-model="store.settings.push_interval" :min="1" :max="60"></el-input-number></el-form-item>
+                    <el-form-item label="提醒提前时间（分钟）"><el-input-number v-model="store.settings.reminder_advance" :min="1" :max="120"></el-input-number></el-form-item>
+                    <el-form-item><el-button type="primary" @click="saveSettings">保存设置</el-button></el-form-item>
+                </el-form>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); margin-top: 20px;">
+                <h4>系统信息</h4>
+                <div style="margin-top: 15px;">
+                    <p><strong>版本：</strong>v1.0.0</p>
+                    <p><strong>运行状态：</strong><el-tag type="success">正常</el-tag></p>
+                    <p><strong>数据库：</strong>SQLite</p>
+                </div>
+            </div>
+        </div>
+    </script>
+
     <script src="js/api.js"></script>
     <script src="js/stores/dashboard.js"></script>
     <script src="js/stores/users.js"></script>
@@ -912,10 +648,10 @@
     <script src="js/stores/knowledge.js"></script>
     <script src="js/stores/collected.js"></script>
     <script src="js/stores/reminders.js"></script>
-    <script src="js/stores/settings.js"></script>
     <script src="js/stores/push.js"></script>
     <script src="js/stores/smartPush.js"></script>
     <script src="js/stores/profile.js"></script>
+    <script src="js/stores/settings.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

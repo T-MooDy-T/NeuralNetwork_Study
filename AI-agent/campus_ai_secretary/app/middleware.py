@@ -59,15 +59,3 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         return response
 
 
-class GZipMiddleware(BaseHTTPMiddleware):
-    """GZip 压缩中间件"""
-    
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
-        response = await call_next(request)
-        
-        # 检查是否支持 gzip 压缩
-        accept_encoding = request.headers.get("accept-encoding", "")
-        if "gzip" in accept_encoding.lower():
-            response.headers["Content-Encoding"] = "gzip"
-        
-        return response

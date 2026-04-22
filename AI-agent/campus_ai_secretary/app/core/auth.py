@@ -26,10 +26,18 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
+class UserInfo(BaseModel):
+    username: str
+    user_id: int
+    role: str
+
+
 class Token(BaseModel):
+    success: bool = True
     access_token: str
     token_type: str
     expires_in: int
+    user: UserInfo
 
 
 class TokenData(BaseModel):

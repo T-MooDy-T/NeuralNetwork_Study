@@ -54,17 +54,17 @@ async def get_student_profile(
     if not user:
         raise HTTPException(status_code=404, detail="学生不存在")
     
-    return await _build_student_profile(user, db)
+    return _build_student_profile(user, db)
 
 
-async def _build_student_profile(user: User, db: Session) -> Dict[str, Any]:
+def _build_student_profile(user: User, db: Session) -> Dict[str, Any]:
     """构建学生画像数据"""
     schedules = db.query(Schedule).filter(
         Schedule.user_id == user.id
     ).order_by(Schedule.start_time).all()
     
     # 分析活动时间
-    activity_analysis = await _analyze_activity_patterns(schedules)
+    activity_analysis = _analyze_activity_patterns(schedules)
     
     # 构建画像
     profile = {
@@ -79,24 +79,24 @@ async def _build_student_profile(user: User, db: Session) -> Dict[str, Any]:
             "last_login": user.last_login
         },
         "preferences": {
-            "interests": await _generate_interests(schedules),
-            "favorite_courses": await _extract_favorite_courses(schedules),
-            "activity_types": await _extract_activity_types(schedules)
+            "interests": _generate_interests(schedules),
+            "favorite_courses": _extract_favorite_courses(schedules),
+            "activity_types": _extract_activity_types(schedules)
         },
         "activity_patterns": activity_analysis,
         "learning_stats": {
             "total_schedules": len(schedules),
             "pending_schedules": len([s for s in schedules if s.status == "pending"]),
             "completed_schedules": len([s for s in schedules if s.status == "completed"]),
-            "average_priority": await _calculate_average_priority(schedules)
+            "average_priority": _calculate_average_priority(schedules)
         },
-        "recent_activities": await _get_recent_activities(schedules)
+        "recent_activities": _get_recent_activities(schedules)
     }
     
     return profile
 
 
-async def _analyze_activity_patterns(schedules: List[Schedule]) -> Dict[str, Any]:
+def _analyze_activity_patterns(schedules: List[Schedule]) -> Dict[str, Any]:
     """分析活动时间模式"""
     if not schedules:
         return {
@@ -146,7 +146,7 @@ async def _analyze_activity_patterns(schedules: List[Schedule]) -> Dict[str, Any
     }
 
 
-async def _generate_interests(schedules: List[Schedule]) -> List[str]:
+def _generate_interests(schedules: List[Schedule]) -> List[str]:
     """从日程中提取兴趣爱好"""
     event_keywords = {
         "课程": ["课", "课程", "上课", "讲座", "讲座"],
@@ -170,7 +170,7 @@ async def _generate_interests(schedules: List[Schedule]) -> List[str]:
     return interests
 
 
-async def _extract_favorite_courses(schedules: List[Schedule]) -> List[str]:
+def _extract_favorite_courses(schedules: List[Schedule]) -> List[str]:
     """提取偏好课程"""
     course_keywords = {
         "高等数学": ["高数", "数学", "微积分"],
@@ -193,7 +193,7 @@ async def _extract_favorite_courses(schedules: List[Schedule]) -> List[str]:
     return courses[:5]
 
 
-async def _extract_activity_types(schedules: List[Schedule]) -> List[Dict[str, int]]:
+def _extract_activity_types(schedules: List[Schedule]) -> List[Dict[str, int]]:
     """提取活动类型分布"""
     type_counts = {
         "学习": 0,
@@ -224,7 +224,7 @@ async def _extract_activity_types(schedules: List[Schedule]) -> List[Dict[str, i
     return [{"type": k, "count": v} for k, v in type_counts.items()]
 
 
-async def _calculate_average_priority(schedules: List[Schedule]) -> str:
+def _calculate_average_priority(schedules: List[Schedule]) -> str:
     """计算平均优先级"""
     if not schedules:
         return "中等"
@@ -241,7 +241,7 @@ async def _calculate_average_priority(schedules: List[Schedule]) -> str:
         return "低"
 
 
-async def _get_recent_activities(schedules: List[Schedule]) -> List[Dict[str, Any]]:
+def _get_recent_activities(schedules: List[Schedule]) -> List[Dict[str, Any]]:
     """获取最近活动"""
     recent = []
     sorted_schedules = sorted(schedules, key=lambda x: x.start_time or datetime.min, reverse=True)
@@ -276,7 +276,7 @@ async def ai_analyze_profile(
     if not user:
         raise HTTPException(status_code=404, detail="学生不存在")
     
-    profile = await _build_student_profile(user, db)
+    profile = _build_student_profile(user, db)
     
     try:
         llm = QwenLLM()

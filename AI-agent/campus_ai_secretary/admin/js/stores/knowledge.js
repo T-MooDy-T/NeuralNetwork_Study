@@ -1,5 +1,6 @@
 window.knowledgeStore = {
     knowledge: Vue.reactive([]),
+    knowledgeList: Vue.reactive([]),
     filters: Vue.reactive({ is_active: null }),
     pagination: Vue.reactive({ page: 1, page_size: 20, total: 0 }),
     loading: Vue.reactive({ value: false }),
@@ -17,6 +18,7 @@ window.knowledgeStore = {
             
             const res = await api.getKnowledge(params);
             window.knowledgeStore.knowledge = res.items;
+            window.knowledgeStore.knowledgeList = res.items || [];
             window.knowledgeStore.pagination.total = res.total;
         } catch (error) {
             ElementPlus.ElMessage.error('加载知识库失败');
@@ -52,6 +54,23 @@ window.knowledgeStore = {
         } catch (error) {
             console.error('添加知识库失败:', error);
             ElementPlus.ElMessage.error(error.response?.data?.detail || '添加失败');
+        }
+    },
+    
+    createKnowledge: async (knowledgeForm) => {
+        try {
+            const data = {
+                title: knowledgeForm.title,
+                content: knowledgeForm.content,
+                source_type: knowledgeForm.source_type || '教务通知',
+                category: knowledgeForm.category || ''
+            };
+            await api.addKnowledge(data);
+            ElementPlus.ElMessage.success('添加成功');
+            await window.knowledgeStore.loadKnowledge();
+        } catch (error) {
+            console.error('创建知识库失败:', error);
+            throw error;
         }
     },
     

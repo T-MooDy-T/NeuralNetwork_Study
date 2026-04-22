@@ -2,6 +2,38 @@ window.pushStore = {
     pushForm: Vue.ref({ user_id: '', message: '' }),
     pushLoading: Vue.ref(false),
     testLoading: Vue.ref(false),
+    pushList: Vue.reactive([]),
+    loading: Vue.reactive({ value: false }),
+    
+    loadPush: async () => {
+        window.pushStore.loading.value = true;
+        try {
+            const res = await api.getPushHistory();
+            window.pushStore.pushList = res.items || [];
+        } catch (error) {
+            console.error('加载推送列表失败:', error);
+        } finally {
+            window.pushStore.loading.value = false;
+        }
+    },
+    
+    sendPush: async (pushForm) => {
+        window.pushStore.pushLoading.value = true;
+        try {
+            const mockUserId = '10001';
+            await api.sendMessage({
+                user_id: mockUserId,
+                message: `【${pushForm.push_type === 'system' ? '系统通知' : pushForm.push_type === 'schedule' ? '日程提醒' : '消息通知'}】${pushForm.title}\n\n${pushForm.content}`
+            });
+            window.pushStore.pushList = [];
+            await window.pushStore.loadPush();
+        } catch (error) {
+            console.error('发送推送失败:', error);
+            throw error;
+        } finally {
+            window.pushStore.pushLoading.value = false;
+        }
+    },
     
     sendPushMessage: async () => {
         if (!window.pushStore.pushForm.value.user_id || !window.pushStore.pushForm.value.message) {
